@@ -20,6 +20,7 @@ class ContentSingleView extends SuperTextView {
 
     private void initData(SuperDialog.Builder builder) {
         setBackgroundColor(ColorRes.bgDialog);
+        setAlpha(builder.mAlpha);
         ProviderContent providerContent = builder.getProviderContent();
         if (providerContent == null) return;
         setText(providerContent.getText());

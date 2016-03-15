@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.callback.ProviderFooterPositive;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
-import com.mylhyl.superdialog.res.values.DimenRes;
 import com.mylhyl.superdialog.view.DividerView;
 import com.mylhyl.superdialog.view.SuperTextView;
 
@@ -24,10 +23,13 @@ class FooterView extends LinearLayout {
     }
 
     private void init(SuperDialog.Builder builder) {
+        setAlpha(builder.mAlpha);
         final ProviderFooterNegative footerNegative = builder.getFooterNegative();
         final ProviderFooterPositive footerPositive = builder.getFooterPositive();
 
         setOrientation(HORIZONTAL);
+
+        int radius = builder.mRadius;
         if (footerNegative != null) {
             final SuperDialog.OnClickNegativeListener onNegativeListener = footerNegative.getOnNegativeListener();
             //取消
@@ -47,9 +49,9 @@ class FooterView extends LinearLayout {
             mNegativeButton.setTextColor(footerNegative.getTextColor());
             mNegativeButton.setHeight(footerNegative.getHeight());
             if (footerPositive != null)
-                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, 0, DimenRes.radius));
+                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, 0, radius));
             else
-                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, DimenRes.radius, DimenRes.radius));
+                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, radius, radius));
             addView(mNegativeButton);
         }
 
@@ -77,9 +79,9 @@ class FooterView extends LinearLayout {
             mPositiveButton.setTextColor(footerPositive.getTextColor());
             mPositiveButton.setHeight(footerPositive.getHeight());
             if (footerNegative != null)
-                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, DimenRes.radius, 0));
+                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, radius, 0));
             else
-                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, DimenRes.radius, DimenRes.radius));
+                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, radius, radius));
             addView(mPositiveButton);
         }
     }

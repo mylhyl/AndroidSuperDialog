@@ -1,6 +1,8 @@
 package com.mylhyl.superdialog;
 
+import android.app.Dialog;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.View;
 
 
@@ -61,6 +63,7 @@ public final class SuperDialog extends BaseDialog {
 
         public Builder setTitle(final String title, final int textSize, final int height) {
             return setTitle(new ProviderHeader() {
+
                 @Override
                 public String getTitle() {
                     return title;
@@ -79,7 +82,7 @@ public final class SuperDialog extends BaseDialog {
         }
 
         public Builder setMessage(String text) {
-            setMessage(text, -1);
+            setMessage(text, 0);
             return this;
         }
 
@@ -107,7 +110,7 @@ public final class SuperDialog extends BaseDialog {
 
                 @Override
                 public int getTextColor() {
-                    return textColor > 0 ? textColor : super.getTextColor();
+                    return textColor != 0 ? textColor : super.getTextColor();
                 }
 
                 @Override
@@ -123,11 +126,12 @@ public final class SuperDialog extends BaseDialog {
         }
 
         public Builder setItems(String[] items, OnItemClickListener listener) {
-            return setItems(items, -1, listener);
+            setGravity(Gravity.BOTTOM);
+            return setItems(items, 0, listener);
         }
 
         public Builder setItems(String[] items, int textSize, OnItemClickListener listener) {
-            return setItems(items, -1, textSize, listener);
+            return setItems(items, 0, textSize, listener);
         }
 
         public Builder setItems(String[] items, int textColor, int textSize, OnItemClickListener listener) {
@@ -155,7 +159,7 @@ public final class SuperDialog extends BaseDialog {
 
                 @Override
                 public int getTextColor() {
-                    return textColor > 0 ? textColor : super.getTextColor();
+                    return textColor != 0 ? textColor : super.getTextColor();
                 }
 
                 @Override
@@ -176,15 +180,15 @@ public final class SuperDialog extends BaseDialog {
         }
 
         public Builder setNegativeButton(String text, OnClickNegativeListener listener) {
-            return setNegativeButton(text, -1, listener);
+            return setNegativeButton(text, 0, listener);
         }
 
         public Builder setNegativeButton(String text, int textColor, OnClickNegativeListener listener) {
             return setNegativeButton(text, textColor, -1, -1, listener);
         }
 
-        public Builder setNegativeButton(final String text, final int textSize,
-                                         final int textColor, final int height, final OnClickNegativeListener listener) {
+        public Builder setNegativeButton(final String text, final int textColor, final int textSize,
+                                         final int height, final OnClickNegativeListener listener) {
             return setNegativeButton(new ProviderFooterNegative() {
                 @Override
                 public String getTitle() {
@@ -209,7 +213,7 @@ public final class SuperDialog extends BaseDialog {
 
                 @Override
                 public int getTextColor() {
-                    return textColor > 0 ? textColor : super.getTextColor();
+                    return textColor != 0 ? textColor : super.getTextColor();
                 }
 
                 @Override
@@ -220,15 +224,15 @@ public final class SuperDialog extends BaseDialog {
         }
 
         public Builder setPositiveButton(String text, OnClickPositiveListener listener) {
-            return setPositiveButton(text, -1, listener);
+            return setPositiveButton(text, 0, listener);
         }
 
         public Builder setPositiveButton(String text, int textColor, OnClickPositiveListener listener) {
             return setPositiveButton(text, textColor, -1, -1, listener);
         }
 
-        public Builder setPositiveButton(final String text, final int textSize,
-                                         final int textColor, final int height, final OnClickPositiveListener listener) {
+        public Builder setPositiveButton(final String text, final int textColor, final int textSize,
+                                         final int height, final OnClickPositiveListener listener) {
             return setPositiveButton(new ProviderFooterPositive() {
                 @Override
                 public String getTitle() {
@@ -254,7 +258,7 @@ public final class SuperDialog extends BaseDialog {
 
                 @Override
                 public int getTextColor() {
-                    return textColor > 0 ? textColor : super.getTextColor();
+                    return textColor != 0 ? textColor : super.getTextColor();
                 }
 
                 @Override
@@ -300,10 +304,11 @@ public final class SuperDialog extends BaseDialog {
             return mFooterPositive;
         }
 
-        public void build() {
+        public Dialog build() {
             checkBuilderParams();
             SuperDialog dialog = new SuperDialog(this);
             dialog.show(mActivity.getSupportFragmentManager(), "superDialog");
+            return dialog.getDialog();
         }
 
     }

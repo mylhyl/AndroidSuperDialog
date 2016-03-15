@@ -11,16 +11,18 @@ import com.mylhyl.superdialog.view.SuperTextView;
  */
 class HeaderView extends SuperTextView {
 
-    public HeaderView(Context context, ProviderHeader providerHeader) {
+    public HeaderView(Context context, SuperDialog.Builder builder) {
         super(context);
-        initData(providerHeader);
+        initData(builder);
     }
 
-    private void initData(ProviderHeader providerHeader) {
+    private void initData(SuperDialog.Builder builder) {
+        ProviderHeader providerHeader = builder.getProviderHeader();
         setText(providerHeader.getTitle());
         setTextSize(providerHeader.getTextSize());
         setHeight(providerHeader.getHeight());
+        setAlpha(builder.mAlpha);
         //背景
-        setBackgroundDrawable(new BgHeader());
+        setBackgroundDrawable(new BgHeader(builder.mRadius));
     }
 }

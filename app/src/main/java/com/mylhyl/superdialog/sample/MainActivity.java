@@ -1,5 +1,6 @@
 package com.mylhyl.superdialog.sample;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mylhyl.superdialog.SuperDialog;
-import com.mylhyl.superdialog.res.values.ColorRes;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -53,7 +53,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
-                new SuperDialog.Builder(this).setTitle("标题").setMessage("可以看到？")
+                new SuperDialog.Builder(this).setRadius(10)
+                        .setAlpha(0.5f)
+                        .setTitle("标题", 80, 205)
+                        .setMessage("可以看到？")
+//                        .setMessage("内容", Color.RED,250)
                         .setPositiveButton("确定", new SuperDialog.OnClickPositiveListener() {
                             @Override
                             public void onClick(View v) {
@@ -72,9 +76,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         }).build();
                 break;
             case 2:
-                final String[] strings = {"拍照", "从相册选择","小视频"};
-                new SuperDialog.Builder(this).setGravity(Gravity.BOTTOM)
+                final String[] strings = {"拍照", "从相册选择", "小视频"};
+                new SuperDialog.Builder(this)
+                        //.setAlpha(0.5f)
+                        //.setGravity(Gravity.CENTER)
                         //.setTitle("上传头像", ColorRes.negativeButton)
+                        .setCanceledOnTouchOutside(false)
                         .setItems(strings, new SuperDialog.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {

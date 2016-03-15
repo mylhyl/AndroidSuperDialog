@@ -85,7 +85,7 @@ artifacts {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
-    //读取Bintray帐号和密码。
+    //读取bintray帐号和密码。
     //一般的为了保密和安全性，在项目的local.properties文件中添加两行句话即可：
     user = properties.getProperty("BINTRAY_USER")
     key = properties.getProperty("BINTRAY_KEY")

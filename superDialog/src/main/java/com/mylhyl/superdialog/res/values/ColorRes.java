@@ -4,15 +4,12 @@ package com.mylhyl.superdialog.res.values;
  * Created by hupei on 2016/3/8 15:23.
  */
 public class ColorRes {
-    public static final int  transparent = 0x00000000;
+
     /**
      * 窗口背景色
      */
     public static final int bgDialog = 0xFFf8f8f8;
-    /**
-     * 窗口背景启用颜色
-     */
-    public static final int bgDialogStart = 0xFFF0F0F0;
+
     /**
      * 标题颜色
      */

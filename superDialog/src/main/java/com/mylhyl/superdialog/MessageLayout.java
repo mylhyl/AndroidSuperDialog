@@ -2,9 +2,6 @@ package com.mylhyl.superdialog;
 
 import android.content.Context;
 
-import com.mylhyl.superdialog.callback.ProviderHeader;
-import com.mylhyl.superdialog.res.drawable.BgLayout;
-import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.view.DividerView;
 
 /**
@@ -20,13 +17,11 @@ final class MessageLayout extends DimenLinearLayout {
     private void init(SuperDialog.Builder builder) {
         setOrientation(VERTICAL);
 
-        ProviderHeader providerHeader = builder.getProviderHeader();
-
-        if (providerHeader != null) {
-            HeaderView titleView = new HeaderView(getContext(), providerHeader);
+        if (builder.getProviderHeader() != null) {
+            HeaderView titleView = new HeaderView(getContext(), builder);
             addView(titleView);
         }
-        ContentSingleView contentView = new ContentSingleView(getContext(),builder);
+        ContentSingleView contentView = new ContentSingleView(getContext(), builder);
         addView(contentView);
 
         //添加消息与底部分隔线

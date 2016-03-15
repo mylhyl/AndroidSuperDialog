@@ -4,16 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.LinearLayout;
 
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
-import com.mylhyl.superdialog.callback.ProviderFooterPositive;
-import com.mylhyl.superdialog.callback.ProviderHeader;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
-import com.mylhyl.superdialog.res.drawable.BgLayout;
-import com.mylhyl.superdialog.res.values.ColorRes;
-import com.mylhyl.superdialog.res.values.DimenRes;
-import com.mylhyl.superdialog.view.DividerView;
 import com.mylhyl.superdialog.view.SuperTextView;
 
 /**
@@ -29,9 +22,8 @@ final class ItemsLayout extends DimenLinearLayout {
     private void init(SuperDialog.Builder builder) {
         setOrientation(VERTICAL);
 
-        ProviderHeader providerHeader = builder.getProviderHeader();
-        if (providerHeader != null) {
-            HeaderView titleView = new HeaderView(getContext(), providerHeader);
+        if (builder.getProviderHeader() != null) {
+            HeaderView titleView = new HeaderView(getContext(), builder);
             addView(titleView);
         }
         ContentMultipleView contentView = new ContentMultipleView(getContext(), builder);
@@ -43,7 +35,7 @@ final class ItemsLayout extends DimenLinearLayout {
             final SuperDialog.OnClickNegativeListener onNegativeListener = footerNegative.getOnNegativeListener();
             //取消
             SuperTextView footerView = new SuperTextView(getContext());
-            footerView.setBackgroundDrawable(new BgLayout());
+            footerView.setAlpha(builder.mAlpha);
             LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
             layoutParams.topMargin = 10;
             footerView.setLayoutParams(layoutParams);
@@ -60,7 +52,8 @@ final class ItemsLayout extends DimenLinearLayout {
             footerView.setTextSize(footerNegative.getTextSize());
             footerView.setTextColor(footerNegative.getTextColor());
             footerView.setHeight(footerNegative.getHeight());
-            footerView.setBackgroundDrawable(new BgBtn(DimenRes.radius, DimenRes.radius, DimenRes.radius, DimenRes.radius));
+            int radius = builder.mRadius;
+            footerView.setBackgroundDrawable(new BgBtn(radius, radius, radius, radius));
             addView(footerView);
         }
     }
