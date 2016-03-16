@@ -18,6 +18,11 @@ import com.mylhyl.superdialog.res.drawable.BgBtn;
 import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.view.SuperTextView;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by hupei on 2016/3/8 19:30.
  */
@@ -47,12 +52,12 @@ class ContentMultipleView extends ListView {
         });
     }
 
-    class ItemAdapter extends BaseAdapter {
+    class ItemAdapter<T> extends BaseAdapter {
         class ViewHolder {
             TextView item;
         }
 
-        private String[] mItems;
+        private List<T> mItems;
         private int Radius;
         private ProviderContent mProviderContent;
         private ProviderHeader mProviderHeader;
@@ -61,20 +66,27 @@ class ContentMultipleView extends ListView {
             this.Radius = builder.mRadius;
             this.mProviderContent = builder.getProviderContent();
             this.mProviderHeader = builder.getProviderHeader();
-            this.mItems = mProviderContent.getItems();
+            Object entity = mProviderContent.getItems();
+            if (entity instanceof Iterable) {
+                this.mItems = (List<T>) entity;
+            } else if (entity.getClass().isArray()) {
+                this.mItems = Arrays.asList((T[]) entity);
+            }else {
+                throw new IllegalArgumentException("entity must be an Array or an Iterable.");
+            }
         }
 
         @Override
         public int getCount() {
             if (mItems != null)
-                return mItems.length;
+                return mItems.size();
             return 0;
         }
 
         @Override
-        public Object getItem(int position) {
+        public T getItem(int position) {
             if (mItems != null)
-                return mItems[position];
+                return mItems.get(position);
             return null;
         }
 
@@ -104,7 +116,7 @@ class ContentMultipleView extends ListView {
                 viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, Radius, Radius));
             else
                 viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, 0, 0));
-            viewHolder.item.setText(String.valueOf(getItem(position)));
+            viewHolder.item.setText(String.valueOf(getItem(position).toString()));
             return convertView;
         }
     }

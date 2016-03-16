@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.mylhyl.superdialog.SuperDialog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Override
@@ -77,12 +80,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case 2:
                 final String[] strings = {"拍照", "从相册选择", "小视频"};
+                List<People> list = new ArrayList<>();
+                list.add(new People(1,"拍照"));
+                list.add(new People(2,"从相册选择"));
+                list.add(new People(3,"小视频"));
                 new SuperDialog.Builder(this)
                         //.setAlpha(0.5f)
                         //.setGravity(Gravity.CENTER)
                         //.setTitle("上传头像", ColorRes.negativeButton)
                         .setCanceledOnTouchOutside(false)
-                        .setItems(strings, new SuperDialog.OnItemClickListener() {
+                        .setItems(list, new SuperDialog.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {
                                 Toast.makeText(MainActivity.this, strings[position], Toast.LENGTH_LONG).show();

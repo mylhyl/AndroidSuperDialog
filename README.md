@@ -8,6 +8,8 @@
 <img src="preview/superDialog_02.png" width="240px"/>
 
 <img src="preview/superDialog_03.png" width="240px"/>
+# 引入
+ compile 'com.mylhyl:superDialog:1.0.1'
 #使用
     简单的对话框
                 new SuperDialog.Builder(this).setRadius(10)

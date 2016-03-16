@@ -125,20 +125,20 @@ public final class SuperDialog extends BaseDialog {
             });
         }
 
-        public Builder setItems(String[] items, OnItemClickListener listener) {
+        public Builder setItems(Object items, OnItemClickListener listener) {
             setGravity(Gravity.BOTTOM);
             return setItems(items, 0, listener);
         }
 
-        public Builder setItems(String[] items, int textSize, OnItemClickListener listener) {
+        public Builder setItems(Object items, int textSize, OnItemClickListener listener) {
             return setItems(items, 0, textSize, listener);
         }
 
-        public Builder setItems(String[] items, int textColor, int textSize, OnItemClickListener listener) {
+        public Builder setItems(Object items, int textColor, int textSize, OnItemClickListener listener) {
             return setItems(items, textColor, textSize, -1, listener);
         }
 
-        public Builder setItems(final String[] items, final int textColor, final int textSize,
+        public Builder setItems(final Object items, final int textColor, final int textSize,
                                 final int itemHeight, final OnItemClickListener listener) {
             return setMessage(new ProviderContent() {
                 @Override
@@ -148,7 +148,7 @@ public final class SuperDialog extends BaseDialog {
                 }
 
                 @Override
-                public String[] getItems() {
+                public Object getItems() {
                     return items;
                 }
 

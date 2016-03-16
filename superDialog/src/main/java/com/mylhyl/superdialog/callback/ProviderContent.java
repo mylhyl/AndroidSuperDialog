@@ -20,7 +20,7 @@ public abstract class ProviderContent {
         return "内容";
     }
 
-    public String[] getItems() {
+    public Object getItems() {
         return null;
     }
 
@@ -43,5 +43,7 @@ public abstract class ProviderContent {
     public int getItemHeight() {
         return DimenRes.headerHeight;
     }
-    public void dismiss(){}
+
+    public void dismiss() {
+    }
 }
