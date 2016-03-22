@@ -5,8 +5,7 @@ import com.mylhyl.superdialog.res.values.DimenRes;
 /**
  * Created by hupei on 2016/3/10 15:04.
  */
-public abstract class ProviderFooter {
-    public abstract String getTitle();
+public abstract class ProviderFooter extends Provider{
 
     public abstract void dismiss();
 

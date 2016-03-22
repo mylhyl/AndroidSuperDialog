@@ -1,29 +1,25 @@
-package com.mylhyl.superdialog;
+package com.mylhyl.superdialog.view;
 
 import android.content.Context;
-import android.util.AttributeSet;
 
 import com.mylhyl.superdialog.callback.ProviderContent;
 import com.mylhyl.superdialog.res.values.ColorRes;
-import com.mylhyl.superdialog.res.values.DimenRes;
-import com.mylhyl.superdialog.view.SuperTextView;
 
 /**
  * Created by hupei on 2016/3/8 19:30.
  */
-class ContentSingleView extends SuperTextView {
+class BodySingleView extends SuperTextView {
 
-    public ContentSingleView(Context context, SuperDialog.Builder builder) {
+    public BodySingleView(Context context, Controller.Params params) {
         super(context);
-        initData(builder);
+        initData(params);
     }
 
-    private void initData(SuperDialog.Builder builder) {
+    private void initData(Controller.Params params) {
         setBackgroundColor(ColorRes.bgDialog);
-        setAlpha(builder.mAlpha);
-        ProviderContent providerContent = builder.getProviderContent();
+        ProviderContent providerContent = params.mProviderContent;
         if (providerContent == null) return;
-        setText(providerContent.getText());
+        setText((String) providerContent.getItems());
         setTextSize(providerContent.getTextSize());
         setTextColor(providerContent.getTextColor());
         int[] padding = providerContent.getPadding();

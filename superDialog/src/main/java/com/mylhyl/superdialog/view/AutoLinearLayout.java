@@ -1,4 +1,4 @@
-package com.mylhyl.superdialog;
+package com.mylhyl.superdialog.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,24 +9,24 @@ import android.widget.LinearLayout;
 import com.mylhyl.superdialog.auto.AutoLayoutConfig;
 
 /**
- * Created by hupei on 2016/3/8 18:06.
+ * Created by hupei on 2016/3/18 16:30.
  */
-class DimenLinearLayout extends LinearLayout {
-    public DimenLinearLayout(Context context) {
+class AutoLinearLayout extends LinearLayout {
+    public AutoLinearLayout(Context context) {
         this(context, null);
     }
 
-    public DimenLinearLayout(Context context, AttributeSet attrs) {
+    public AutoLinearLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DimenLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AutoLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         AutoLayoutConfig.init(context);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public DimenLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public AutoLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         AutoLayoutConfig.init(context);
     }

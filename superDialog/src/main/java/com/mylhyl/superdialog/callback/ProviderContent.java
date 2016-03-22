@@ -16,10 +16,6 @@ public abstract class ProviderContent {
         return null;
     }
 
-    public String getText() {
-        return "内容";
-    }
-
     public Object getItems() {
         return null;
     }

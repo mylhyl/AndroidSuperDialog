@@ -5,8 +5,7 @@ import com.mylhyl.superdialog.res.values.DimenRes;
 /**
  * Created by hupei on 2016/3/10 15:06.
  */
-public abstract class ProviderHeader {
-    public abstract String getTitle();
+public abstract class ProviderHeader extends Provider{
 
     public int getTextSize() {
         return DimenRes.headerTextSize;

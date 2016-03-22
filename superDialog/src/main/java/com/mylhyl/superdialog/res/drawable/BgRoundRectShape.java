@@ -1,6 +1,5 @@
 package com.mylhyl.superdialog.res.drawable;
 
-import android.graphics.RectF;
 import android.graphics.drawable.shapes.RoundRectShape;
 
 /**

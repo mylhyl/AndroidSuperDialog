@@ -1,11 +1,10 @@
-package com.mylhyl.superdialog;
+package com.mylhyl.superdialog.view;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
@@ -16,32 +15,28 @@ import com.mylhyl.superdialog.callback.ProviderContent;
 import com.mylhyl.superdialog.callback.ProviderHeader;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
 import com.mylhyl.superdialog.res.values.ColorRes;
-import com.mylhyl.superdialog.view.SuperTextView;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by hupei on 2016/3/8 19:30.
  */
-class ContentMultipleView extends ListView {
+class BodyMultipleView extends ListView {
 
-    public ContentMultipleView(Context context, SuperDialog.Builder builder) {
+    public BodyMultipleView(Context context, Controller.Params params) {
         super(context);
-        initData(builder);
+        initData(params);
     }
 
-    private void initData(SuperDialog.Builder builder) {
-        setAlpha(builder.mAlpha);
-        setLayoutParams(new LinearLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
+    private void initData(Controller.Params params) {
+        setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         setSelector(new ColorDrawable(Color.TRANSPARENT));
-        final ProviderContent providerContent = builder.getProviderContent();
+        final ProviderContent providerContent = params.mProviderContent;
         if (providerContent == null) return;
         setDivider(new ColorDrawable(ColorRes.divider));
         setDividerHeight(1);
-        setAdapter(new ItemAdapter(builder));
+        setAdapter(new ItemAdapter(params));
         setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -62,10 +57,10 @@ class ContentMultipleView extends ListView {
         private ProviderContent mProviderContent;
         private ProviderHeader mProviderHeader;
 
-        public ItemAdapter(SuperDialog.Builder builder) {
-            this.Radius = builder.mRadius;
-            this.mProviderContent = builder.getProviderContent();
-            this.mProviderHeader = builder.getProviderHeader();
+        public ItemAdapter(Controller.Params params) {
+            this.Radius = params.mRadius;
+            this.mProviderContent = params.mProviderContent;
+            this.mProviderHeader = params.mProviderHeader;
             Object entity = mProviderContent.getItems();
             if (entity instanceof Iterable) {
                 this.mItems = (List<T>) entity;

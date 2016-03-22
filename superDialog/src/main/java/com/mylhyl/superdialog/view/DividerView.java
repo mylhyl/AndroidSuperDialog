@@ -11,7 +11,7 @@ import com.mylhyl.superdialog.res.values.ColorRes;
  * 分隔线，默认垂直
  * Created by hupei on 2016/3/8 15:12.
  */
-public class DividerView extends View {
+class DividerView extends View {
     public DividerView(Context context) {
         this(context, null);
     }

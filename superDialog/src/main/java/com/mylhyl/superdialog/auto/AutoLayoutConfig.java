@@ -68,22 +68,6 @@ public class AutoLayoutConfig {
         }
     }
 
-    public int getScreenWidth() {
-        return mScreenWidth;
-    }
-
-    public int getScreenHeight() {
-        return mScreenHeight;
-    }
-
-    public int getDesignWidth() {
-        return mDesignWidth;
-    }
-
-    public int getDesignHeight() {
-        return mDesignHeight;
-    }
-
     public float getScale() {
         return mScale;
     }

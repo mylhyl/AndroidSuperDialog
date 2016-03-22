@@ -1,15 +1,15 @@
-package com.mylhyl.superdialog;
+package com.mylhyl.superdialog.view;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.mylhyl.superdialog.SuperDialog;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.callback.ProviderFooterPositive;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
-import com.mylhyl.superdialog.view.DividerView;
-import com.mylhyl.superdialog.view.SuperTextView;
+
 
 /**
  * 底部按钮
@@ -17,19 +17,18 @@ import com.mylhyl.superdialog.view.SuperTextView;
  */
 class FooterView extends LinearLayout {
 
-    public FooterView(Context context, SuperDialog.Builder builder) {
+    public FooterView(Context context, Controller.Params params) {
         super(context);
-        init(builder);
+        init(params);
     }
 
-    private void init(SuperDialog.Builder builder) {
-        setAlpha(builder.mAlpha);
-        final ProviderFooterNegative footerNegative = builder.getFooterNegative();
-        final ProviderFooterPositive footerPositive = builder.getFooterPositive();
+    private void init(Controller.Params params) {
+        final ProviderFooterNegative footerNegative = params.mFooterNegative;
+        final ProviderFooterPositive footerPositive = params.mFooterPositive;
 
         setOrientation(HORIZONTAL);
 
-        int radius = builder.mRadius;
+        int radius = params.mRadius;
         if (footerNegative != null) {
             final SuperDialog.OnClickNegativeListener onNegativeListener = footerNegative.getOnNegativeListener();
             //取消
