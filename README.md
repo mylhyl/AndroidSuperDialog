@@ -11,7 +11,7 @@
 # 引入
  compile 'com.mylhyl:superDialog:1.0.1'
 #使用
-    简单的对话框
+简单的对话框
 ```java
                 new SuperDialog.Builder(this).setRadius(10)
                         .setAlpha(0.5f)
@@ -23,7 +23,7 @@
                             }
                         }).build();
 ```
-    选择对话框
+选择对话框
 ```java
                 //final String[] strings = {"拍照", "从相册选择", "小视频"};
                 List<People> list = new ArrayList<>();
