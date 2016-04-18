@@ -12,6 +12,7 @@
  compile 'com.mylhyl:superDialog:1.0.1'
 #使用
     简单的对话框
+```java
                 new SuperDialog.Builder(this).setRadius(10)
                         .setAlpha(0.5f)
                         .setTitle("标题").setMessage("可以看到？")
@@ -21,7 +22,9 @@
                                 Toast.makeText(v.getContext(), "点了确定", Toast.LENGTH_LONG).show();
                             }
                         }).build();
+```
     选择对话框
+```java
                 //final String[] strings = {"拍照", "从相册选择", "小视频"};
                 List<People> list = new ArrayList<>();
                 list.add(new People(1,"拍照"));
@@ -40,6 +43,7 @@
                         })
                         .setNegativeButton("取消", null)
                         .build();
+```
 #说明
 	此库自动将px转换百分比，由于 Dialog 布局一般只有微调，暂时只支持
 	* textSize，height，padding。
