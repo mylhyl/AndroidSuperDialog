@@ -49,5 +49,7 @@
 	* textSize，height，padding。
 	默认字体大小;Title、message、button、padding 的px在设计稿为 1080 * 1920 的尺寸
 	所以使用时设计稿尺寸一定是1080 * 1920
+QQ交流群:435173211
+
 #感谢
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
