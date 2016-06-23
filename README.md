@@ -1,6 +1,6 @@
 # AndroidSuperDialog
-   基于 DialogFragment 封装，支持自定义边框圆角、背景透明度、字体大小与色值等。
-   列表选择框可以接收 List 与 Arrays 的数据源，详细见demo
+   基于`DialogFragment`封装，支持自定义边框圆角、背景透明度、字体大小与色值等。
+   列表选择框可以接收`List`与`Arrays`的数据源，详细见`demo`
 
 #效果图
 <img src="preview/superDialog_01.png" width="240px"/>
@@ -9,7 +9,9 @@
 
 <img src="preview/superDialog_03.png" width="240px"/>
 # 引入
+```xml
  compile 'com.mylhyl:superDialog:1.0.1'
+```
 #使用
 简单的对话框
 ```java
