@@ -1,6 +1,10 @@
 # AndroidSuperDialog
    基于`DialogFragment`封装，支持自定义边框圆角、背景透明度、字体大小与色值等。
    列表选择框可以接收`List`与`Arrays`的数据源，详细见`demo`
+# 知识点
+  全代码创建`shape`、`selector`、`Layout`，三大`Layout`不用多讲，肯定都会的，主要是`Shape`所使用类如下：
+  * `shape`对应`ShapeDrawable`、`RoundRectShape`
+  * `selector`对应`StateListDrawable`
 
 #效果图
 <img src="preview/superDialog_01.png" width="240px"/>
@@ -9,11 +13,14 @@
 
 <img src="preview/superDialog_03.png" width="240px"/>
 # 引入
+
 ```xml
  compile 'com.mylhyl:superDialog:1.0.1'
 ```
+
 #使用
 简单的对话框
+
 ```java
                 new SuperDialog.Builder(this).setRadius(10)
                         .setAlpha(0.5f)
@@ -25,7 +32,9 @@
                             }
                         }).build();
 ```
+
 选择对话框
+
 ```java
                 //final String[] strings = {"拍照", "从相册选择", "小视频"};
                 List<People> list = new ArrayList<>();
@@ -46,11 +55,11 @@
                         .setNegativeButton("取消", null)
                         .build();
 ```
+
 #说明
-	此库自动将px转换百分比，由于 Dialog 布局一般只有微调，暂时只支持
-	* textSize，height，padding。
-	默认字体大小;Title、message、button、padding 的px在设计稿为 1080 * 1920 的尺寸
-	所以使用时设计稿尺寸一定是1080 * 1920
+	* 此库自动将px转换百分比，由于 Dialog 布局一般只有微调，暂时只支持textSize，height，padding
+	* 默认字体大小;Title、message、button、padding 的px在设计稿为 1080 * 1920 的尺寸
+	* 所以使用时设计稿尺寸一定是1080 * 1920
 QQ交流群:435173211
 
 #感谢
