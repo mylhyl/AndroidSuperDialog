@@ -10,7 +10,7 @@ import com.mylhyl.superdialog.res.values.ColorRes;
  * Created by hupei on 2016/3/9 13:02.
  */
 public class BgBtn extends StateListDrawable {
-    public BgBtn(int leftTop, int rightTop, int rightBottom, int leftBottom) {
+    public BgBtn(int leftTop, int rightTop, int rightBottom, int leftBottom, int backgroundColor) {
         //按下
         ShapeDrawable drawablePress = new ShapeDrawable(
                 new BgRoundRectShape(leftTop, rightTop, rightBottom, leftBottom).getRoundRectShape());
@@ -18,7 +18,7 @@ public class BgBtn extends StateListDrawable {
         //默认
         ShapeDrawable defaultDrawable = new ShapeDrawable(
                 new BgRoundRectShape(leftTop, rightTop, rightBottom, leftBottom).getRoundRectShape());
-        defaultDrawable.getPaint().setColor(ColorRes.bgDialog);
+        defaultDrawable.getPaint().setColor(backgroundColor);
 
         addState(new int[]{android.R.attr.state_pressed}, drawablePress);
         addState(new int[]{-android.R.attr.state_pressed}, defaultDrawable);

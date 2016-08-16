@@ -1,6 +1,7 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.mylhyl.superdialog.callback.ProviderContent;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.callback.ProviderFooterPositive;
 import com.mylhyl.superdialog.callback.ProviderHeader;
+import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.res.values.DimenRes;
 
 /**
@@ -57,6 +59,7 @@ public class Controller {
         public boolean mCancelable = true;
         public int mRadius = DimenRes.radius;
         public float mAlpha = 1f;
+        public int mBackgroundColor = ColorRes.bgDialog;
 
         public void setTitle(ProviderHeader mProviderHeader) {
             this.mProviderHeader = mProviderHeader;

@@ -1,5 +1,6 @@
 package com.mylhyl.superdialog;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
@@ -10,6 +11,7 @@ import com.mylhyl.superdialog.view.Controller;
 /**
  * Created by hupei on 2016/3/8 13:36.
  */
+@SuppressLint("ValidFragment")
 public final class SuperDialog extends BaseDialog {
     public interface OnClickNegativeListener {
         void onClick(View v);

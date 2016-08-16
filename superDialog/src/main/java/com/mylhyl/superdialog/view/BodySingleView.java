@@ -3,7 +3,6 @@ package com.mylhyl.superdialog.view;
 import android.content.Context;
 
 import com.mylhyl.superdialog.callback.ProviderContent;
-import com.mylhyl.superdialog.res.values.ColorRes;
 
 /**
  * Created by hupei on 2016/3/8 19:30.
@@ -16,7 +15,7 @@ class BodySingleView extends SuperTextView {
     }
 
     private void initData(Controller.Params params) {
-        setBackgroundColor(ColorRes.bgDialog);
+        setBackgroundColor(params.mBackgroundColor);
         ProviderContent providerContent = params.mProviderContent;
         if (providerContent == null) return;
         setText((String) providerContent.getItems());

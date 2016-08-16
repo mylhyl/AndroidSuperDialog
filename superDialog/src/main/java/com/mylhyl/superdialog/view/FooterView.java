@@ -48,9 +48,9 @@ class FooterView extends LinearLayout {
             mNegativeButton.setTextColor(footerNegative.getTextColor());
             mNegativeButton.setHeight(footerNegative.getHeight());
             if (footerPositive != null)
-                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, 0, radius));
+                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, 0, radius, params.mBackgroundColor));
             else
-                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, radius, radius));
+                mNegativeButton.setBackgroundDrawable(new BgBtn(0, 0, radius, radius, params.mBackgroundColor));
             addView(mNegativeButton);
         }
 
@@ -78,9 +78,9 @@ class FooterView extends LinearLayout {
             mPositiveButton.setTextColor(footerPositive.getTextColor());
             mPositiveButton.setHeight(footerPositive.getHeight());
             if (footerNegative != null)
-                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, radius, 0));
+                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, radius, 0, params.mBackgroundColor));
             else
-                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, radius, radius));
+                mPositiveButton.setBackgroundDrawable(new BgBtn(0, 0, radius, radius, params.mBackgroundColor));
             addView(mPositiveButton);
         }
     }

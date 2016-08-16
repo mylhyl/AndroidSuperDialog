@@ -26,7 +26,7 @@ def gitUrl = 'https://github.com/mylhyl/AndroidSuperDialog.git'
 //唯一包名
 group = "com.mylhyl"
 //版本号
-version = "1.0.1"
+version = "1.0.2"
 
 install {
     repositories.mavenInstaller {

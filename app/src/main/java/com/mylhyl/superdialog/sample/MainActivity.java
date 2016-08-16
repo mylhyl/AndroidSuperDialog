@@ -1,11 +1,8 @@
 package com.mylhyl.superdialog.sample;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +12,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mylhyl.superdialog.SuperDialog;
+import com.mylhyl.superdialog.res.values.ColorRes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +57,10 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         switch (position) {
             case 0:
                 new SuperDialog.Builder(this).setRadius(10)
-                        .setAlpha(0.5f)
+//                        .setAlpha(0.5f)
                         .setTitle("标题", 80, 205)
                         .setMessage("可以看到？")
+//                        .setBackgroundColor(Color.WHITE)
 //                        .setMessage("内容", Color.RED,250)
                         .setPositiveButton("确定", new SuperDialog.OnClickPositiveListener() {
                             @Override
@@ -72,6 +71,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                 break;
             case 1:
                 new SuperDialog.Builder(this).setTitle("标题").setMessage("内容从这里开始了")
+                        .setBackgroundColor(Color.WHITE)
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", new SuperDialog.OnClickPositiveListener() {
                             @Override
@@ -83,13 +83,14 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
             case 2:
                 final String[] strings = {"拍照", "从相册选择", "小视频"};
                 List<People> list = new ArrayList<>();
-                list.add(new People(1,"拍照"));
-                list.add(new People(2,"从相册选择"));
-                list.add(new People(3,"小视频"));
+                list.add(new People(1, "拍照"));
+                list.add(new People(2, "从相册选择"));
+                list.add(new People(3, "小视频"));
                 new SuperDialog.Builder(this)
+//                        .setBackgroundColor(Color.WHITE)
                         //.setAlpha(0.5f)
                         //.setGravity(Gravity.CENTER)
-                        //.setTitle("上传头像", ColorRes.negativeButton)
+                        .setTitle("上传头像", ColorRes.negativeButton)
                         .setCanceledOnTouchOutside(false)
                         .setItems(list, new SuperDialog.OnItemClickListener() {
                             @Override

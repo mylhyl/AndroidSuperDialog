@@ -21,6 +21,6 @@ class HeaderView extends SuperTextView {
         setTextSize(providerHeader.getTextSize());
         setHeight(providerHeader.getHeight());
         //背景
-        setBackgroundDrawable(new BgHeader(params.mRadius));
+        setBackgroundDrawable(new BgHeader(params));
     }
 }

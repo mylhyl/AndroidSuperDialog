@@ -10,6 +10,7 @@ import com.mylhyl.superdialog.SuperDialog;
 import com.mylhyl.superdialog.callback.CreateLayout;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
+import com.mylhyl.superdialog.res.values.ColorRes;
 
 /**
  * Created by hupei on 2016/3/18 16:27.
@@ -69,7 +70,7 @@ class CreateLayoutImpl implements CreateLayout {
         footerView.setTextColor(footerNegative.getTextColor());
         footerView.setHeight(footerNegative.getHeight());
         int radius = mParams.mRadius;
-        footerView.setBackgroundDrawable(new BgBtn(radius, radius, radius, radius));
+        footerView.setBackgroundDrawable(new BgBtn(radius, radius, radius, radius, ColorRes.bgDialog));
         mRoot.addView(footerView);
     }
 

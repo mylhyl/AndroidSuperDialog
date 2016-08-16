@@ -53,12 +53,14 @@ class BodyMultipleView extends ListView {
         }
 
         private List<T> mItems;
-        private int Radius;
+        private int mRadius;
+        private int mBackgroundColor;
         private ProviderContent mProviderContent;
         private ProviderHeader mProviderHeader;
 
         public ItemAdapter(Controller.Params params) {
-            this.Radius = params.mRadius;
+            this.mRadius = params.mRadius;
+            this.mBackgroundColor = params.mBackgroundColor;
             this.mProviderContent = params.mProviderContent;
             this.mProviderHeader = params.mProviderHeader;
             Object entity = mProviderContent.getItems();
@@ -66,7 +68,7 @@ class BodyMultipleView extends ListView {
                 this.mItems = (List<T>) entity;
             } else if (entity.getClass().isArray()) {
                 this.mItems = Arrays.asList((T[]) entity);
-            }else {
+            } else {
                 throw new IllegalArgumentException("entity must be an Array or an Iterable.");
             }
         }
@@ -105,12 +107,19 @@ class BodyMultipleView extends ListView {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
+
+            //top
             if (position == 0 && mProviderHeader == null)
-                viewHolder.item.setBackgroundDrawable(new BgBtn(Radius, Radius, 0, 0));
+                viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, 0, 0, mBackgroundColor));
+
+                //bottom
             else if (position == getCount() - 1)
-                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, Radius, Radius));
+                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, mRadius, mRadius, mBackgroundColor));
+
+                //middle
             else
-                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, 0, 0));
+                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, 0, 0, mBackgroundColor));
+
             viewHolder.item.setText(String.valueOf(getItem(position).toString()));
             return convertView;
         }

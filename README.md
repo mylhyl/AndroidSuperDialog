@@ -15,7 +15,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.0.1'
+ compile 'com.mylhyl:superDialog:1.0.2'
 ```
 
 #使用
@@ -64,3 +64,7 @@ QQ交流群:435173211
 
 #感谢
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
+
+# 版本
+
+> 1.0.2 增加背景方法`setBackgroundColor`

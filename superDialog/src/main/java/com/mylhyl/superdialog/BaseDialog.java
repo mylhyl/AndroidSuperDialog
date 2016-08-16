@@ -4,6 +4,7 @@ package com.mylhyl.superdialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -96,16 +97,45 @@ abstract class BaseDialog extends DialogFragment {
             return (T) this;
         }
 
+        /**
+         * 设置对话框透明度
+         *
+         * @param alpha
+         * @return
+         */
         public T setAlpha(@FloatRange(from = 0.0, to = 1.0) float alpha) {
             mParams.mAlpha = alpha;
             return (T) this;
         }
 
-        public T setRadius(int mRadius) {
-            mParams.mRadius = mRadius;
+        /**
+         * 设置对话框背景色
+         *
+         * @param color
+         * @return
+         */
+        public T setBackgroundColor(@ColorInt int color) {
+            mParams.mBackgroundColor = color;
             return (T) this;
         }
 
+        /**
+         * 设置对话框圆角
+         *
+         * @param radius
+         * @return
+         */
+        public T setRadius(int radius) {
+            mParams.mRadius = radius;
+            return (T) this;
+        }
+
+        /**
+         * 设置对话框点击外部关闭
+         *
+         * @param cancel
+         * @return
+         */
         public T setCanceledOnTouchOutside(boolean cancel) {
             mParams.mCancelable = cancel;
             return (T) this;
