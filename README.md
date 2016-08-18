@@ -1,6 +1,7 @@
 # AndroidSuperDialog
    基于`DialogFragment`封装，支持自定义边框圆角、背景透明度、字体大小与色值等。
-   列表选择框可以接收`List`与`Arrays`的数据源，详细见`demo`
+   列表选择框可以接收`List`与`Arrays`的数据源，详细见`demo`。
+   初衷是掌握知识点，此库不一定适合你的产品整体风格，当然能够适合你的项目最好不过，有建议和不足之处欢迎骚扰。
 # 知识点
   全代码创建`shape`、`selector`、`Layout`，三大`Layout`不用多讲，肯定都会的，主要是`Shape`所使用类如下：
   * `shape`对应`ShapeDrawable`、`RoundRectShape`
