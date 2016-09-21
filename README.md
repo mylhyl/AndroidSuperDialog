@@ -19,6 +19,8 @@
  compile 'com.mylhyl:superDialog:1.0.2'
 ```
 
+如果使用eclipse可以 [点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压, 取出jar包
+
 #使用
 简单的对话框
 
