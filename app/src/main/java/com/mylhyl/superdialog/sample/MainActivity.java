@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1
-                , new String[]{"提示框", "确定框", "换头像"}));
+                , new String[]{"提示框", "确定框", "换头像", "消息框"}));
 
         listView.setOnItemClickListener(this);
     }
@@ -100,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         })
                         .setNegativeButton("取消", null)
                         .build();
+                break;
+            case 3:
+                new SuperDialog.Builder(this).setRadius(30)
+                        .setTitle("提示", 80, 205)
+                        .setMessage("正在授权解锁...").build();
                 break;
         }
     }

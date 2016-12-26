@@ -1,7 +1,6 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.View;
@@ -36,12 +35,14 @@ public class Controller {
         ProviderContent providerContent = mParams.mProviderContent;
         if (providerContent != null && providerContent.getMode() == ProviderContent.Mode.MULTIPLE) {
             createLayout.buildMultipleBody();
-            if (mParams.mFooterNegative != null) {
+            if (mParams.mFooterNegative != null || mParams.mFooterPositive != null) {
                 createLayout.buildMultipleFooter();
             }
-        }else{
+        } else {
             createLayout.buildSingleBody();
-            createLayout.buildSingleFooter();
+            //没有确定与取消不添加视图
+            if (mParams.mFooterNegative != null || mParams.mFooterPositive != null)
+                createLayout.buildSingleFooter();
         }
     }
 
@@ -97,17 +98,20 @@ public class Controller {
             });
         }
 
-        public void setMessage(final String text, final int textColor, final int textSize, final int[] padding) {
+        public void setMessage(final String text, final int textColor, final int textSize, final
+        int[] padding) {
             setMessage(text, textColor, textSize, -1, padding, null);
         }
 
         public void setMessage(final Object items, final int textColor, final int textSize,
-                               final int itemHeight, final SuperDialog.OnItemClickListener listener) {
+                               final int itemHeight, final SuperDialog.OnItemClickListener
+                                       listener) {
             setMessage(items, textColor, textSize, itemHeight, null, listener);
         }
 
         private void setMessage(final Object items, final int textColor, final int textSize,
-                                final int itemHeight, final int[] padding, final SuperDialog.OnItemClickListener listener) {
+                                final int itemHeight, final int[] padding, final SuperDialog
+                .OnItemClickListener listener) {
             setMessage(new ProviderContent() {
                 @Override
                 public void dismiss() {
@@ -153,7 +157,8 @@ public class Controller {
         }
 
         public void setNegativeButton(final String text, final int textColor, final int textSize,
-                                      final int height, final SuperDialog.OnClickNegativeListener listener) {
+                                      final int height, final SuperDialog.OnClickNegativeListener
+                                              listener) {
             setNegativeButton(new ProviderFooterNegative() {
                 @Override
                 public String getTitle() {
@@ -162,7 +167,7 @@ public class Controller {
 
                 @Override
                 public void dismiss() {
-                    if(mDialogFragment !=null)
+                    if (mDialogFragment != null)
                         mDialogFragment.dismiss();
                 }
 
@@ -189,7 +194,8 @@ public class Controller {
         }
 
         public void setPositiveButton(final String text, final int textColor, final int textSize,
-                                      final int height, final SuperDialog.OnClickPositiveListener listener) {
+                                      final int height, final SuperDialog.OnClickPositiveListener
+                                              listener) {
             setPositiveButton(new ProviderFooterPositive() {
                 @Override
                 public String getTitle() {
@@ -198,7 +204,7 @@ public class Controller {
 
                 @Override
                 public void dismiss() {
-                    if(mDialogFragment !=null)
+                    if (mDialogFragment != null)
                         mDialogFragment.dismiss();
                 }
 
