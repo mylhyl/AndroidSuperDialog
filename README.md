@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.0.2'
+ compile 'com.mylhyl:superDialog:1.0.3'
 ```
 
 如果使用eclipse可以 [点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压, 取出jar包
@@ -69,5 +69,7 @@ QQ交流群:435173211
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.0.3 修复`dismiss()`无效的问题
 
 > 1.0.2 增加背景方法`setBackgroundColor`

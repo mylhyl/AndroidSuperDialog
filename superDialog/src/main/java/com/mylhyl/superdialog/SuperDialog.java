@@ -2,6 +2,7 @@ package com.mylhyl.superdialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -122,11 +123,11 @@ public final class SuperDialog extends BaseDialog {
         }
 
 
-        public Dialog build() {
+        public DialogFragment build() {
             checkBuilderParams();
             SuperDialog dialog = new SuperDialog(this);
             dialog.show(mActivity.getSupportFragmentManager(), "superDialog");
-            return dialog.getDialog();
+            return dialog;
         }
     }
 }
