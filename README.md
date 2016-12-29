@@ -59,12 +59,12 @@ eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhy
                         .build();
 ```
 
-宽度`setWidth(@FloatRange(from = 0.0, to = 1.0) float width)`
-边距`setPadding(int left, int top, int right, int bottom)`
-动画`setWindowAnimations(int animStyle)`
-列表框距离下方按钮的间距`setItemsBottomMargin(int bottomMargin)`
-指定位置显示`setShowAtLocation(int gravity, int x, int y)`
-设置背景是否昏暗`setDimEnabled(boolean dimEnabled)`
+* 宽度`setWidth(@FloatRange(from = 0.0, to = 1.0) float width)`
+* 边距`setPadding(int left, int top, int right, int bottom)`
+* 动画`setWindowAnimations(int animStyle)`
+* 列表框距离下方按钮的间距`setItemsBottomMargin(int bottomMargin)`
+* 指定位置显示`setShowAtLocation(int gravity, int x, int y)`
+* 设置背景是否昏暗`setDimEnabled(boolean dimEnabled)`
 `setConfigDialog`更多使用
 ```java
     window.setWindowAnimations();//动画
