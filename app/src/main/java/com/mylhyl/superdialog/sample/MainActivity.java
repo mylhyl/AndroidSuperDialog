@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case 3:
                 new SuperDialog.Builder(this).setRadius(30)
+                        .setWidth(0.75f)
                         .setTitle("提示", 80, 205)
                         .setMessage("正在授权解锁...").build();
                 break;

@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.view.Display;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -40,10 +40,16 @@ abstract class BaseDialog extends DialogFragment {
         Dialog dialog = builder.create();
         mParams.mDialogFragment = this;
         dialog.setCanceledOnTouchOutside(mParams.mCancelable);
-        setDialogGravity(dialog);//设置对话框布局
         return dialog;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+            setDialogGravity(dialog);//设置对话框布局
+    }
 
     /**
      * 设置对话框底部显示
@@ -55,8 +61,9 @@ abstract class BaseDialog extends DialogFragment {
         Window window = dialog.getWindow();
         window.setBackgroundDrawableResource(android.R.color.transparent);
         WindowManager.LayoutParams wlp = window.getAttributes();
-        Display d = window.getWindowManager().getDefaultDisplay();//获取屏幕宽
-        wlp.width = (int) (d.getWidth() * 0.9);//宽度按屏幕大小的百分比设置
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);//获取屏幕宽
+        wlp.width = (int) (dm.widthPixels * mParams.mWidth);//宽度按屏幕大小的百分比设置
         wlp.gravity = mParams.mGravity;
         //如果是底部显示，则向上移20
         if (wlp.gravity == Gravity.BOTTOM)
@@ -100,7 +107,7 @@ abstract class BaseDialog extends DialogFragment {
         /**
          * 设置对话框透明度
          *
-         * @param alpha
+         * @param alpha 0.0 - 1.0
          * @return
          */
         public T setAlpha(@FloatRange(from = 0.0, to = 1.0) float alpha) {
@@ -141,9 +148,26 @@ abstract class BaseDialog extends DialogFragment {
             return (T) this;
         }
 
+        /**
+         * 设置对话框宽度
+         *
+         * @param width 0.0 - 1.0
+         * @return
+         */
+        public T setWidth(@FloatRange(from = 0.0, to = 1.0) float width) {
+            mParams.mWidth = width;
+            return (T) this;
+        }
+
         void checkBuilderParams() {
             if (mParams.mProviderContent == null) {
                 throw new IllegalArgumentException("message is empty, please set");
+            }
+            if (mParams.mProviderContent == null) {
+                throw new IllegalArgumentException("alpha is 0.0 to 1.0, please setAlpha");
+            }
+            if (mParams.mWidth < 0 || mParams.mWidth > 1) {
+                throw new IllegalArgumentException("width is 0.0 to 1.0, please setWidth");
             }
         }
     }

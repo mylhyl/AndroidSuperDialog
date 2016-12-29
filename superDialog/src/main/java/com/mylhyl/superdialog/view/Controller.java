@@ -61,6 +61,7 @@ public class Controller {
         public int mRadius = DimenRes.radius;
         public float mAlpha = 1f;
         public int mBackgroundColor = ColorRes.bgDialog;
+        public float mWidth = 0.9f;
 
         public void setTitle(ProviderHeader mProviderHeader) {
             this.mProviderHeader = mProviderHeader;
