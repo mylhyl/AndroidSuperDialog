@@ -1,7 +1,8 @@
 package com.mylhyl.superdialog;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -15,8 +16,9 @@ import com.mylhyl.superdialog.view.Controller;
 /**
  * Created by hupei on 2016/3/8 13:36.
  */
-@SuppressLint("ValidFragment")
 public final class SuperDialog extends BaseDialog {
+    private static final String SAVED_BUILDER = "super.dialog:Builder";
+
     public interface OnClickNegativeListener {
         void onClick(View v);
     }
@@ -35,15 +37,35 @@ public final class SuperDialog extends BaseDialog {
     }
 
     private Controller mController;
+    private Builder mBuilder;
 
-    private SuperDialog(Builder builder) {
-        super(builder.mParams);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mBuilder = (Builder) savedInstanceState.getSerializable(SAVED_BUILDER);
+            setController(mBuilder);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mController != null) {
+            outState.putSerializable(SAVED_BUILDER, mBuilder);
+        }
+    }
+
+    private void setController(Builder builder) {
+        this.mBuilder = builder;
         this.mController = new Controller(builder.getContext(), builder.mParams);
         mController.apply();
+        mParams = builder.mParams;
     }
 
     @Override
     public View createView() {
+        if (mController == null) return null;
         return mController.createView();
     }
 
@@ -147,7 +169,8 @@ public final class SuperDialog extends BaseDialog {
 
         public DialogFragment build() {
             checkBuilderParams();
-            SuperDialog dialog = new SuperDialog(this);
+            SuperDialog dialog = new SuperDialog();
+            dialog.setController(this);
             dialog.show(mActivity.getSupportFragmentManager(), "superDialog");
             return dialog;
         }

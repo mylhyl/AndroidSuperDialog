@@ -20,6 +20,8 @@ import android.view.WindowManager;
 import com.mylhyl.superdialog.auto.AutoUtils;
 import com.mylhyl.superdialog.view.Controller;
 
+import java.io.Serializable;
+
 /**
  * Created by hupei on 2016/3/8 13:25.
  */
@@ -27,11 +29,7 @@ abstract class BaseDialog extends DialogFragment {
 
     public abstract View createView();
 
-    private Controller.Params mParams;
-
-    protected BaseDialog(Controller.Params params) {
-        mParams = params;
-    }
+    protected Controller.Params mParams;
 
     @Override
     public final Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -50,6 +48,11 @@ abstract class BaseDialog extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null)
             setDialogGravity(dialog);//设置对话框布局
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
     }
 
     /**
@@ -102,7 +105,7 @@ abstract class BaseDialog extends DialogFragment {
         transaction.commitAllowingStateLoss();// 防止按home键后，show的时候调用父类中的commit方法异常
     }
 
-    public static class Builder<T extends Builder> {
+    public static class Builder<T extends Builder> implements Serializable {
         protected FragmentActivity mActivity;
         protected Controller.Params mParams;
 

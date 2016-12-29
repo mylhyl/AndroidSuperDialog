@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.0.6'
+ compile 'com.mylhyl:superDialog:1.0.7'
 ```
 
 eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压取出jar包
@@ -82,6 +82,8 @@ QQ交流群:435173211
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.0.7 修复旋转屏幕引起的crash
 
 > 1.0.6 增加动画、边距等配置
 

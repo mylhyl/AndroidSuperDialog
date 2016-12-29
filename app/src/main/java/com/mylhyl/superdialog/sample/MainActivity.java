@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                        .setAlpha(0.5f)
                         .setTitle("标题", 80, 205)
                         .setMessage("可以看到？")
-                        .setDimEnabled(false)
+//                        .setDimEnabled(false)
 //                        .setBackgroundColor(Color.WHITE)
 //                        .setMessage("内容", Color.RED,250)
                         .setPositiveButton("确定", new SuperDialog.OnClickPositiveListener() {

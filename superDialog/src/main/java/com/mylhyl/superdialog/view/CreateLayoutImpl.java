@@ -71,7 +71,7 @@ class CreateLayoutImpl implements CreateLayout {
         footerView.setTextColor(footerNegative.getTextColor());
         footerView.setHeight(footerNegative.getHeight());
         int radius = mParams.mRadius;
-        footerView.setBackgroundDrawable(new BgBtn(radius, radius, radius, radius, ColorRes.bgDialog));
+        footerView.setBackgroundDrawable(new BgBtn(radius, radius, radius, radius, mParams.mBackgroundColor));
         mRoot.addView(footerView);
     }
 
