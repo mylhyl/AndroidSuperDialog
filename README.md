@@ -65,11 +65,16 @@ eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhy
 * 列表框距离下方按钮的间距`setItemsBottomMargin(int bottomMargin)`
 * 指定位置显示`setShowAtLocation(int gravity, int x, int y)`
 * 设置背景是否昏暗`setDimEnabled(boolean dimEnabled)`
-`setConfigDialog`更多使用
+* `setConfigDialog`更多使用
 ```java
-    window.setWindowAnimations();//动画
-    wlp.x;
-    wlp.y;
+	.setConfigDialog(new SuperDialog.ConfigDialog() {
+		@Override
+		public void onConfig(Dialog dialog, Window window, WindowManager
+				.LayoutParams wlp, DisplayMetrics dm) {
+			window.setWindowAnimations(R.style.dialogWindowAnim);//动画
+			wlp.y = 100;//底部距离
+		}
+	})
 ```
 
 #说明
