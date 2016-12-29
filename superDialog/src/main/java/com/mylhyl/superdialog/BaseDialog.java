@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.mylhyl.superdialog.auto.AutoUtils;
 import com.mylhyl.superdialog.view.Controller;
 
 /**
@@ -44,8 +45,8 @@ abstract class BaseDialog extends DialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         Dialog dialog = getDialog();
         if (dialog != null)
             setDialogGravity(dialog);//设置对话框布局
@@ -65,16 +66,37 @@ abstract class BaseDialog extends DialogFragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);//获取屏幕宽
         wlp.width = (int) (dm.widthPixels * mParams.mWidth);//宽度按屏幕大小的百分比设置
         wlp.gravity = mParams.mGravity;
-        //如果是底部显示，则向上移20
-        if (wlp.gravity == Gravity.BOTTOM)
-            wlp.y = 20;
+        //如果是底部显示，则向上移20px
+        if (wlp.gravity == Gravity.BOTTOM) {
+            mParams.y = 20;
+        }
+        wlp.x = AutoUtils.scaleValue(mParams.x);
+        wlp.y = AutoUtils.scaleValue(mParams.y);
+
+        //边距
+        if (mParams.mPadding != null) {
+            int[] padding = mParams.mPadding;
+            wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.getDecorView().setPadding(padding[0], padding[1], padding[2], padding[3]);
+        }
+        //动画
+        if (mParams.mAnimStyle != 0) {
+            window.setWindowAnimations(mParams.mAnimStyle);
+        }
+        if (mParams.isDimEnabled) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+        if (mParams.mConfigDialog != null) {
+            mParams.mConfigDialog.onConfig(dialog, window, wlp, dm);
+        }
         window.setAttributes(wlp);
     }
 
     @Override
     public void show(FragmentManager manager, String tag) {
         FragmentTransaction transaction = manager.beginTransaction();
-        // 指定一个过渡动画
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.add(this, tag);
         transaction.commitAllowingStateLoss();// 防止按home键后，show的时候调用父类中的commit方法异常
@@ -95,7 +117,7 @@ abstract class BaseDialog extends DialogFragment {
 
         /**
          * 设置对话框位置
-         * {@link Gravity#CENTER}
+         * {@link Gravity#CENTER 默认}
          *
          * @param gravity
          */
@@ -156,6 +178,83 @@ abstract class BaseDialog extends DialogFragment {
          */
         public T setWidth(@FloatRange(from = 0.0, to = 1.0) float width) {
             mParams.mWidth = width;
+            return (T) this;
+        }
+
+        /**
+         * 设置边距
+         *
+         * @param left   px
+         * @param top    px
+         * @param right  px
+         * @param bottom px
+         * @return
+         */
+        public T setPadding(int left, int top, int right, int bottom) {
+            mParams.mPadding = new int[]{AutoUtils.scaleValue(left), AutoUtils.scaleValue(top)
+                    , AutoUtils.scaleValue(right), AutoUtils.scaleValue(bottom)};
+            return (T) this;
+        }
+
+        /**
+         * 动画弹出对话框,style动画资源
+         *
+         * @param animStyle
+         * @return
+         */
+        public T setWindowAnimations(int animStyle) {
+            mParams.mAnimStyle = animStyle;
+            return (T) this;
+        }
+
+        /**
+         * 列表距离下方按钮的间距
+         *
+         * @param bottomMargin px
+         * @return
+         */
+        public T setItemsBottomMargin(int bottomMargin) {
+            mParams.mItemsBottomMargin = bottomMargin;
+            return (T) this;
+        }
+
+        /**
+         * 指定位置显示
+         *
+         * @param x
+         * @param y
+         */
+        public T setShowAtLocation(int x, int y) {
+            return setShowAtLocation(mParams.mGravity, x, y);
+        }
+
+        /**
+         * 指定位置显示
+         *
+         * @param gravity {@link Gravity}
+         * @param x
+         * @param y
+         */
+        public T setShowAtLocation(int gravity, int x, int y) {
+            mParams.mGravity = gravity;
+            mParams.x = x;
+            mParams.y = y;
+            return (T) this;
+        }
+
+        /**
+         * 设置背景是否昏暗，默认true
+         *
+         * @param dimEnabled
+         * @return
+         */
+        public T setDimEnabled(boolean dimEnabled) {
+            mParams.isDimEnabled = dimEnabled;
+            return (T) this;
+        }
+
+        public T setConfigDialog(SuperDialog.ConfigDialog configDialog) {
+            mParams.mConfigDialog = configDialog;
             return (T) this;
         }
 

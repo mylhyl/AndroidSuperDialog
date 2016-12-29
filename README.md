@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.0.5'
+ compile 'com.mylhyl:superDialog:1.0.6'
 ```
 
 eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压取出jar包
@@ -59,6 +59,19 @@ eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhy
                         .build();
 ```
 
+宽度`setWidth(@FloatRange(from = 0.0, to = 1.0) float width)`
+边距`setPadding(int left, int top, int right, int bottom)`
+动画`setWindowAnimations(int animStyle)`
+列表框距离下方按钮的间距`setItemsBottomMargin(int bottomMargin)`
+指定位置显示`setShowAtLocation(int gravity, int x, int y)`
+设置背景是否昏暗`setDimEnabled(boolean dimEnabled)`
+`setConfigDialog`更多使用
+```java
+    window.setWindowAnimations();//动画
+    wlp.x;
+    wlp.y;
+```
+
 #说明
 	* 此库自动将px转换百分比，由于 Dialog 布局一般只有微调，暂时只支持textSize，height，padding
 	* 默认字体大小;Title、message、button、padding 的px在设计稿为 1080 * 1920 的尺寸
@@ -69,6 +82,8 @@ QQ交流群:435173211
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.0.6 增加动画、边距等配置
 
 > 1.0.5 支持调整宽度`setWidth`
 

@@ -7,6 +7,7 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
 import com.mylhyl.superdialog.SuperDialog;
+import com.mylhyl.superdialog.auto.AutoUtils;
 import com.mylhyl.superdialog.callback.CreateLayout;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
@@ -54,7 +55,7 @@ class CreateLayoutImpl implements CreateLayout {
         SuperTextView footerView = new SuperTextView(mContext);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        layoutParams.topMargin = 10;
+        layoutParams.topMargin = AutoUtils.scaleValue(mParams.mItemsBottomMargin);
         footerView.setLayoutParams(layoutParams);
         footerView.setClickable(true);
         footerView.setOnClickListener(new View.OnClickListener() {

@@ -1,13 +1,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button1"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/button"
+            android:layout_marginEnd="72dp"
+            android:layout_marginRight="72dp"
+            android:onClick="onClickBtn2"
+            android:text="New Button2"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_marginTop="20dp"
+            android:layout_toLeftOf="@+id/button2"
+            android:layout_toStartOf="@+id/button2"
+            android:onClick="onClickBtn3"
+            android:text="边距"/>
+    </RelativeLayout>
 
     <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
-        android:layout_gravity="bottom"
-        android:layout_weight="1" />
+        />
+
 </LinearLayout>

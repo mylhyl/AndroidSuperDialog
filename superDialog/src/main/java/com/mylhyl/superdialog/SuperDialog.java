@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.mylhyl.superdialog.view.Controller;
 
@@ -24,6 +27,11 @@ public final class SuperDialog extends BaseDialog {
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public interface ConfigDialog {
+        void onConfig(Dialog dialog, Window window, WindowManager.LayoutParams wlp,
+                      DisplayMetrics dm);
     }
 
     private Controller mController;
@@ -70,10 +78,12 @@ public final class SuperDialog extends BaseDialog {
             return setMessage(text, textColor, textSize, null);
         }
 
-        public Builder setMessage(final String text, final int textColor, final int textSize, final int[] padding) {
+        public Builder setMessage(final String text, final int textColor, final int textSize,
+                                  final int[] padding) {
             mParams.setMessage(text, textColor, textSize, padding);
             return this;
         }
+
 
         public Builder setItems(Object items, OnItemClickListener listener) {
             return setItems(items, 0, listener);
@@ -83,10 +93,21 @@ public final class SuperDialog extends BaseDialog {
             return setItems(items, 0, textSize, listener);
         }
 
-        public Builder setItems(Object items, int textColor, int textSize, OnItemClickListener listener) {
+        public Builder setItems(Object items, int textColor, int textSize, OnItemClickListener
+                listener) {
             return setItems(items, textColor, textSize, -1, listener);
         }
 
+        /**
+         * 列表 {@link Gravity#BOTTOM 默认}
+         *
+         * @param items      数据源 Array or Iterable
+         * @param textColor  字体颜色
+         * @param textSize   字体大小 px
+         * @param itemHeight 列表 Item 高度 px
+         * @param listener   列表点击事件
+         * @return
+         */
         public Builder setItems(Object items, int textColor, int textSize,
                                 int itemHeight, OnItemClickListener listener) {
             setGravity(Gravity.BOTTOM);
@@ -98,7 +119,8 @@ public final class SuperDialog extends BaseDialog {
             return setNegativeButton(text, 0, listener);
         }
 
-        public Builder setNegativeButton(String text, int textColor, OnClickNegativeListener listener) {
+        public Builder setNegativeButton(String text, int textColor, OnClickNegativeListener
+                listener) {
             return setNegativeButton(text, textColor, -1, -1, listener);
         }
 
@@ -112,7 +134,8 @@ public final class SuperDialog extends BaseDialog {
             return setPositiveButton(text, 0, listener);
         }
 
-        public Builder setPositiveButton(String text, int textColor, OnClickPositiveListener listener) {
+        public Builder setPositiveButton(String text, int textColor, OnClickPositiveListener
+                listener) {
             return setPositiveButton(text, textColor, -1, -1, listener);
         }
 
@@ -121,7 +144,6 @@ public final class SuperDialog extends BaseDialog {
             mParams.setPositiveButton(text, textColor, textSize, height, listener);
             return this;
         }
-
 
         public DialogFragment build() {
             checkBuilderParams();

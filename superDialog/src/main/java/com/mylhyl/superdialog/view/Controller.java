@@ -62,6 +62,11 @@ public class Controller {
         public float mAlpha = 1f;
         public int mBackgroundColor = ColorRes.bgDialog;
         public float mWidth = 0.9f;
+        public int[] mPadding;
+        public int mItemsBottomMargin = 10;
+        public int mAnimStyle, x, y;
+        public boolean isDimEnabled = true;
+        public SuperDialog.ConfigDialog mConfigDialog;
 
         public void setTitle(ProviderHeader mProviderHeader) {
             this.mProviderHeader = mProviderHeader;
