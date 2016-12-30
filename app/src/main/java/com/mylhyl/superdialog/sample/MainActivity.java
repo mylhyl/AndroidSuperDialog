@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case 3:
                 new SuperDialog.Builder(this).setRadius(30)
-                        .setWidth(0.75f)
+                        //.setWidth(0.75f)
 //                        .setConfigDialog(new SuperDialog.ConfigDialog() {
 //                            @Override
 //                            public void onConfig(Dialog dialog, Window window, WindowManager

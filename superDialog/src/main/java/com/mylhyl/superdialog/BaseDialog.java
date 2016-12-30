@@ -43,16 +43,11 @@ abstract class BaseDialog extends DialogFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null)
             setDialogGravity(dialog);//设置对话框布局
-    }
-
-    @Override
-    public void dismiss() {
-        super.dismiss();
     }
 
     /**
@@ -80,7 +75,9 @@ abstract class BaseDialog extends DialogFragment {
         if (mParams.mPadding != null) {
             int[] padding = mParams.mPadding;
             wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            window.getDecorView().setPadding(padding[0], padding[1], padding[2], padding[3]);
+            window.getDecorView().setPadding(AutoUtils.scaleValue(padding[0]), AutoUtils
+                    .scaleValue(padding[1]), AutoUtils.scaleValue(padding[2]), AutoUtils
+                    .scaleValue(padding[3]));
         }
         //动画
         if (mParams.mAnimStyle != 0) {
@@ -194,8 +191,7 @@ abstract class BaseDialog extends DialogFragment {
          * @return
          */
         public T setPadding(int left, int top, int right, int bottom) {
-            mParams.mPadding = new int[]{AutoUtils.scaleValue(left), AutoUtils.scaleValue(top)
-                    , AutoUtils.scaleValue(right), AutoUtils.scaleValue(bottom)};
+            mParams.mPadding = new int[]{left, top, right, bottom};
             return (T) this;
         }
 
