@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.0.7'
+ compile 'com.mylhyl:superDialog:1.0.8'
 ```
 
 eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压取出jar包
@@ -87,6 +87,8 @@ QQ交流群:435173211
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.0.8 修复列表模式单条数据无圆角效果
 
 > 1.0.7 修复旋转屏幕引起的crash
 

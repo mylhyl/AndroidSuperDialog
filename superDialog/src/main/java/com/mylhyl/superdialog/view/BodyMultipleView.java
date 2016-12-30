@@ -30,7 +30,8 @@ class BodyMultipleView extends ListView {
     }
 
     private void initData(Controller.Params params) {
-        setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
+                .MATCH_PARENT));
         setSelector(new ColorDrawable(Color.TRANSPARENT));
         final ProviderContent providerContent = params.mProviderContent;
         if (providerContent == null) return;
@@ -64,9 +65,9 @@ class BodyMultipleView extends ListView {
             this.mProviderContent = params.mProviderContent;
             this.mProviderHeader = params.mProviderHeader;
             Object entity = mProviderContent.getItems();
-            if (entity instanceof Iterable) {
+            if (entity != null && entity instanceof Iterable) {
                 this.mItems = (List<T>) entity;
-            } else if (entity.getClass().isArray()) {
+            } else if (entity != null && entity.getClass().isArray()) {
                 this.mItems = Arrays.asList((T[]) entity);
             } else {
                 throw new IllegalArgumentException("entity must be an Array or an Iterable.");
@@ -109,12 +110,18 @@ class BodyMultipleView extends ListView {
             }
 
             //top
-            if (position == 0 && mProviderHeader == null)
-                viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, 0, 0, mBackgroundColor));
-
-                //bottom
+            if (position == 0 && mProviderHeader == null) {
+                if (getCount() == 1)
+                    viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, mRadius,
+                            mRadius, mBackgroundColor));
+                else
+                    viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, 0, 0,
+                            mBackgroundColor));
+            }
+            //bottom
             else if (position == getCount() - 1)
-                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, mRadius, mRadius, mBackgroundColor));
+                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, mRadius, mRadius,
+                        mBackgroundColor));
 
                 //middle
             else
