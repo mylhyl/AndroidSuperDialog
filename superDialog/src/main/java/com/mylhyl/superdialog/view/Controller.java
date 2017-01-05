@@ -14,10 +14,12 @@ import com.mylhyl.superdialog.callback.ProviderHeader;
 import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.res.values.DimenRes;
 
+import java.io.Serializable;
+
 /**
  * Created by hupei on 2016/3/18 16:18.
  */
-public class Controller {
+public final class Controller {
     private Context mContext;
     private Params mParams;
     private CreateLayout createLayout;
@@ -50,13 +52,14 @@ public class Controller {
         return createLayout.buildView();
     }
 
-    public static class Params {
+    public static class Params implements Serializable{
         public DialogFragment mDialogFragment;
         public ProviderHeader mProviderHeader;
         public ProviderContent mProviderContent;
         public ProviderFooterNegative mFooterNegative;
         public ProviderFooterPositive mFooterPositive;
         public int mGravity = Gravity.CENTER;
+        public boolean mCanceledOnTouchOutside = true;
         public boolean mCancelable = true;
         public int mRadius = DimenRes.radius;
         public float mAlpha = 1f;
@@ -68,20 +71,20 @@ public class Controller {
         public boolean isDimEnabled = true;
         public SuperDialog.ConfigDialog mConfigDialog;
 
-        public void setTitle(ProviderHeader mProviderHeader) {
-            this.mProviderHeader = mProviderHeader;
+        public void setTitle(ProviderHeader providerHeader) {
+            this.mProviderHeader = providerHeader;
         }
 
         public void setMessage(ProviderContent providerContent) {
             this.mProviderContent = providerContent;
         }
 
-        public void setNegativeButton(ProviderFooterNegative mFooterNegative) {
-            this.mFooterNegative = mFooterNegative;
+        public void setNegativeButton(ProviderFooterNegative footerNegative) {
+            this.mFooterNegative = footerNegative;
         }
 
-        public void setPositiveButton(ProviderFooterPositive mFooterPositive) {
-            this.mFooterPositive = mFooterPositive;
+        public void setPositiveButton(ProviderFooterPositive footerPositive) {
+            this.mFooterPositive = footerPositive;
         }
 
         public void setTitle(final String title, final int textSize, final int height) {

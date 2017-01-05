@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         .build();
                 break;
             case 3:
-                new SuperDialog.Builder(this).setRadius(30)
+                new SuperDialog.Builder(this).setRadius(50)
                         //.setWidth(0.75f)
 //                        .setConfigDialog(new SuperDialog.ConfigDialog() {
 //                            @Override
@@ -109,7 +109,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                wlp.height = 300;
 //                            }
 //                        })
-                        .setPadding(10,0,10,0)
+                        .setCanceledOnTouchOutside(false)
+                        .setCancelable(false)
+                        .setGravity(Gravity.TOP)
+                        .setPadding(50,0,50,0)
                         .setTitle("提示", 80, 205)
                         .setMessage("正在授权解锁...").build();
                 break;

@@ -37,8 +37,10 @@ abstract class BaseDialog extends DialogFragment {
         View view = createView();
         builder.setView(view);
         Dialog dialog = builder.create();
-        mParams.mDialogFragment = this;
-        dialog.setCanceledOnTouchOutside(mParams.mCancelable);
+        if (mParams != null) {
+            mParams.mDialogFragment = this;
+            dialog.setCanceledOnTouchOutside(mParams.mCanceledOnTouchOutside);
+        }
         return dialog;
     }
 
@@ -46,8 +48,10 @@ abstract class BaseDialog extends DialogFragment {
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null)
+        if (dialog != null && mParams != null) {
+            setCancelable(mParams.mCancelable);
             setDialogGravity(dialog);//设置对话框布局
+        }
     }
 
     /**
@@ -166,6 +170,17 @@ abstract class BaseDialog extends DialogFragment {
          * @return
          */
         public T setCanceledOnTouchOutside(boolean cancel) {
+            mParams.mCanceledOnTouchOutside = cancel;
+            return (T) this;
+        }
+
+        /**
+         * 设置对话框返回键关闭
+         *
+         * @param cancel
+         * @return
+         */
+        public T setCancelable(boolean cancel) {
             mParams.mCancelable = cancel;
             return (T) this;
         }

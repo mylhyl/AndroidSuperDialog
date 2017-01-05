@@ -17,7 +17,6 @@ import com.mylhyl.superdialog.view.Controller;
  * Created by hupei on 2016/3/8 13:36.
  */
 public final class SuperDialog extends BaseDialog {
-    private static final String SAVED_BUILDER = "super.dialog:Builder";
 
     public interface OnClickNegativeListener {
         void onClick(View v);
@@ -37,27 +36,8 @@ public final class SuperDialog extends BaseDialog {
     }
 
     private Controller mController;
-    private Builder mBuilder;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            mBuilder = (Builder) savedInstanceState.getSerializable(SAVED_BUILDER);
-            setController(mBuilder);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mController != null) {
-            outState.putSerializable(SAVED_BUILDER, mBuilder);
-        }
-    }
 
     private void setController(Builder builder) {
-        this.mBuilder = builder;
         this.mController = new Controller(builder.getContext(), builder.mParams);
         mController.apply();
         mParams = builder.mParams;
