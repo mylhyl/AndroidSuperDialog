@@ -11,7 +11,6 @@ import com.mylhyl.superdialog.auto.AutoUtils;
 import com.mylhyl.superdialog.callback.CreateLayout;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
-import com.mylhyl.superdialog.res.values.ColorRes;
 
 /**
  * Created by hupei on 2016/3/18 16:27.
@@ -39,7 +38,8 @@ class CreateLayoutImpl implements CreateLayout {
     @Override
     public void buildMultipleBody() {
         mRoot.addView(new BodyMultipleView(mContext, mParams),
-                new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
+                new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams
+                        .MATCH_PARENT));
     }
 
     @Override
@@ -54,7 +54,8 @@ class CreateLayoutImpl implements CreateLayout {
         //取消
         SuperTextView footerView = new SuperTextView(mContext);
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         layoutParams.topMargin = AutoUtils.scaleValue(mParams.mItemsBottomMargin);
         footerView.setLayoutParams(layoutParams);
         footerView.setClickable(true);
@@ -88,4 +89,27 @@ class CreateLayoutImpl implements CreateLayout {
     public View buildView() {
         return mRoot;
     }
+
+    @Override
+    public View findMultipleBody() {
+        int childCount = mRoot.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View childAt = mRoot.getChildAt(i);
+            if (childAt instanceof BodyMultipleView)
+                return childAt;
+        }
+        return null;
+    }
+
+    @Override
+    public View findSingleBody() {
+        int childCount = mRoot.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View childAt = mRoot.getChildAt(i);
+            if (childAt instanceof BodySingleView)
+                return childAt;
+        }
+        return null;
+    }
+
 }

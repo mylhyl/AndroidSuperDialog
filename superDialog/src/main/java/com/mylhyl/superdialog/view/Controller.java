@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
 
 import com.mylhyl.superdialog.SuperDialog;
 import com.mylhyl.superdialog.callback.CreateLayout;
@@ -52,7 +53,20 @@ public final class Controller {
         return createLayout.buildView();
     }
 
-    public static class Params implements Serializable{
+    public void refreshProviderContent(Animation animation) {
+        ProviderContent providerContent = mParams.mProviderContent;
+        if (providerContent != null && providerContent.getMode() == ProviderContent.Mode.MULTIPLE) {
+            BodyMultipleView multipleBody = (BodyMultipleView) createLayout.findMultipleBody();
+            if (multipleBody != null) multipleBody.refreshItems();
+        } else {
+            BodySingleView singleBody = (BodySingleView) createLayout.findSingleBody();
+            if (singleBody != null) singleBody.refreshText();
+        }
+        if (animation != null)
+            createView().startAnimation(animation);
+    }
+
+    public static class Params implements Serializable {
         public DialogFragment mDialogFragment;
         public ProviderHeader mProviderHeader;
         public ProviderContent mProviderContent;

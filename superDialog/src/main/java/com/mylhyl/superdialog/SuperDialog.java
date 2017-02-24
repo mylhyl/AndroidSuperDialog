@@ -1,8 +1,6 @@
 package com.mylhyl.superdialog;
 
 import android.app.Dialog;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -10,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 
 import com.mylhyl.superdialog.view.Controller;
 
@@ -43,6 +42,10 @@ public final class SuperDialog extends BaseDialog {
         mParams = builder.mParams;
     }
 
+    private void refreshProviderContent(Animation animation) {
+        mController.refreshProviderContent(animation);
+    }
+
     @Override
     public View createView() {
         if (mController == null) return null;
@@ -50,9 +53,11 @@ public final class SuperDialog extends BaseDialog {
     }
 
     public static class Builder extends BaseDialog.Builder<Builder> {
+        private SuperDialog dialog;
 
         public Builder(FragmentActivity activity) {
             super(activity);
+            dialog = new SuperDialog();
         }
 
         public Builder setTitle(String title) {
@@ -149,10 +154,29 @@ public final class SuperDialog extends BaseDialog {
 
         public DialogFragment build() {
             checkBuilderParams();
-            SuperDialog dialog = new SuperDialog();
             dialog.setController(this);
-            dialog.show(mActivity.getSupportFragmentManager(), "superDialog");
+            show();
             return dialog;
+        }
+
+        /**
+         * 刷新内容
+         */
+        public void refreshContent() {
+            dialog.refreshProviderContent(null);
+        }
+
+        /**
+         * 刷新内容
+         *
+         * @param animation 刷新过程中，整个框的动画
+         */
+        public void refreshContent(Animation animation) {
+            dialog.refreshProviderContent(animation);
+        }
+
+        public void show() {
+            dialog.show(mActivity.getSupportFragmentManager(), "superDialog");
         }
     }
 }

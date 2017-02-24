@@ -23,21 +23,26 @@ import java.util.List;
  * Created by hupei on 2016/3/8 19:30.
  */
 class BodyMultipleView extends ListView {
+    private Controller.Params mParams;
+    private ItemAdapter mAdapter;
 
     public BodyMultipleView(Context context, Controller.Params params) {
         super(context);
-        initData(params);
+        this.mParams = params;
+        initData();
     }
 
-    private void initData(Controller.Params params) {
+    private void initData() {
+        mAdapter = new ItemAdapter(mParams);
         setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
                 .MATCH_PARENT));
         setSelector(new ColorDrawable(Color.TRANSPARENT));
-        final ProviderContent providerContent = params.mProviderContent;
+        final ProviderContent providerContent = mParams.mProviderContent;
         if (providerContent == null) return;
         setDivider(new ColorDrawable(ColorRes.divider));
         setDividerHeight(1);
-        setAdapter(new ItemAdapter(params));
+        setAdapter(mAdapter);
+
         setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,6 +51,10 @@ class BodyMultipleView extends ListView {
                     providerContent.getItemClickListener().onItemClick(position);
             }
         });
+    }
+
+    public void refreshItems() {
+        mAdapter.notifyDataSetChanged();
     }
 
     class ItemAdapter<T> extends BaseAdapter {

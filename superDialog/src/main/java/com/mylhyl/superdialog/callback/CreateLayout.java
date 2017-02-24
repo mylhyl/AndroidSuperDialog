@@ -15,4 +15,7 @@ public interface CreateLayout {
     void buildSingleFooter();
 
     View buildView();
+
+    View findMultipleBody();
+    View findSingleBody();
 }
