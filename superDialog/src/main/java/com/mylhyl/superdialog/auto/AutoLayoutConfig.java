@@ -1,6 +1,8 @@
 package com.mylhyl.superdialog.auto;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
 /**
  * Created by hupei on 2016/3/8 17:32.
@@ -22,7 +24,7 @@ public class AutoLayoutConfig {
     private AutoLayoutConfig() {
     }
 
-    public static void init(Context context ) {
+    public static void init(Context context) {
         if (sInstance == null) {
             sInstance = new AutoLayoutConfig();
             sInstance.initInternal(context, new AutoScaleAdapter(context));
@@ -37,6 +39,7 @@ public class AutoLayoutConfig {
     }
 
     private void initInternal(Context context, AutoScaleAdapter scaleAdapter) {
+        getMetaData(context);
         checkParams();
         int[] size = AutoUtils.getRealScreenSize(context);
         mScreenWidth = size[0];
@@ -61,10 +64,27 @@ public class AutoLayoutConfig {
         }
     }
 
+    private void getMetaData(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        ApplicationInfo applicationInfo;
+        try {
+            applicationInfo = packageManager.getApplicationInfo(context
+                    .getPackageName(), PackageManager.GET_META_DATA);
+            if (applicationInfo != null && applicationInfo.metaData != null
+                    && applicationInfo.metaData.containsKey(KEY_DESIGN_WIDTH)
+                    && applicationInfo.metaData.containsKey(KEY_DESIGN_HEIGHT)) {
+                mDesignWidth = (int) applicationInfo.metaData.get(KEY_DESIGN_WIDTH);
+                mDesignHeight = (int) applicationInfo.metaData.get(KEY_DESIGN_HEIGHT);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        }
+    }
+
     private void checkParams() {
         if (mDesignHeight <= 0 || mDesignWidth <= 0) {
             throw new RuntimeException(
-                    "you must set " + KEY_DESIGN_WIDTH + " and " + KEY_DESIGN_HEIGHT + "  in your manifest file.");
+                    "you must set " + KEY_DESIGN_WIDTH + " and " + KEY_DESIGN_HEIGHT + " > 0");
         }
     }
 

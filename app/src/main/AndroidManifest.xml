@@ -7,6 +7,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <meta-data android:name="design_width" android:value="1200"/>
+        <meta-data android:name="design_height" android:value="1920"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
