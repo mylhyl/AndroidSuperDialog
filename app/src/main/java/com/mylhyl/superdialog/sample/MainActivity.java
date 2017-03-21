@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 new SuperDialog.Builder(this)
 //                        .setBackgroundColor(Color.WHITE)
                         //.setAlpha(0.5f)
-                        //.setGravity(Gravity.CENTER)
                         .setTitle("上传头像", ColorRes.negativeButton)
                         .setCanceledOnTouchOutside(false)
                         //setItems默认是底部位置
@@ -81,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                         .LENGTH_LONG).show();
                             }
                         })
+                        //注意
+                        //.setGravity(Gravity.CENTER)请在setItems之后设置setGravity
                         .setNegativeButton("取消", null)
 //                        .setConfigDialog(new SuperDialog.ConfigDialog() {
 //                            @Override
@@ -108,8 +109,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                wlp.height = 300;
 //                            }
 //                        })
-                        .setCanceledOnTouchOutside(false)
-                        .setCancelable(false)
+//                        .setCanceledOnTouchOutside(false)
+//                        .setCancelable(false)
                         .setGravity(Gravity.TOP)
                         .setPadding(50, 0, 50, 0)
 //                        .setTitle("提示", 80, 205)

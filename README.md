@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.0.12'
+ compile 'com.mylhyl:superDialog:1.1.0'
 ```
 
 eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压取出jar包
@@ -78,15 +78,24 @@ eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhy
 ```
 
 #说明
+
 	* 此库自动将px转换百分比，由于 Dialog 布局一般只有微调，暂时只支持textSize，height，padding
 	* 默认字体大小;Title、message、button、padding 的px在设计稿为 1080 * 1920 的尺寸
-	* 所以使用时设计稿尺寸一定是1080 * 1920
+	* 也可自己定义，只需在manifest.xml中加入如下格式
+
+```xml
+<meta-data android:name="design_width" android:value="1200"/>
+<meta-data android:name="design_height" android:value="1920"/>
+```
+
 QQ交流群:435173211
 
 #感谢
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.1.0 增加 manifest.xml 中配置大小
 
 > 1.0.12 修复bug，增加`refreshContent`刷新内容方法
 
