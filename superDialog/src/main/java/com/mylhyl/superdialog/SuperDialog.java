@@ -1,6 +1,7 @@
 package com.mylhyl.superdialog;
 
 import android.app.Dialog;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 
+import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.view.Controller;
 
 /**
@@ -27,6 +29,10 @@ public final class SuperDialog extends BaseDialog {
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public interface OnClickPositiveInputListener {
+        void onClick(String text, View v);
     }
 
     public interface ConfigDialog {
@@ -73,34 +79,33 @@ public final class SuperDialog extends BaseDialog {
             return this;
         }
 
-        public Builder setMessage(String text) {
+        public Builder setMessage(@NonNull String text) {
             return setMessage(text, 0);
         }
 
-        public Builder setMessage(String text, int textColor) {
+        public Builder setMessage(@NonNull String text, int textColor) {
             return setMessage(text, textColor, -1);
         }
 
-        public Builder setMessage(String text, int textColor, int textSize) {
+        public Builder setMessage(@NonNull String text, int textColor, int textSize) {
             return setMessage(text, textColor, textSize, null);
         }
 
-        public Builder setMessage(final String text, final int textColor, final int textSize,
+        public Builder setMessage(@NonNull final String text, final int textColor, final int textSize,
                                   final int[] padding) {
-            mParams.setMessage(text, textColor, textSize, padding);
+            mParams.setContentSingle(text, textColor, textSize, padding);
             return this;
         }
 
-
-        public Builder setItems(Object items, OnItemClickListener listener) {
+        public Builder setItems(@NonNull Object items, OnItemClickListener listener) {
             return setItems(items, 0, listener);
         }
 
-        public Builder setItems(Object items, int textSize, OnItemClickListener listener) {
+        public Builder setItems(@NonNull Object items, int textSize, OnItemClickListener listener) {
             return setItems(items, 0, textSize, listener);
         }
 
-        public Builder setItems(Object items, int textColor, int textSize, OnItemClickListener
+        public Builder setItems(@NonNull Object items, int textColor, int textSize, OnItemClickListener
                 listener) {
             return setItems(items, textColor, textSize, -1, listener);
         }
@@ -115,10 +120,36 @@ public final class SuperDialog extends BaseDialog {
          * @param listener   列表点击事件
          * @return
          */
-        public Builder setItems(Object items, int textColor, int textSize,
+        public Builder setItems(@NonNull Object items, int textColor, int textSize,
                                 int itemHeight, OnItemClickListener listener) {
             setGravity(Gravity.BOTTOM);
-            mParams.setMessage(items, textColor, textSize, itemHeight, listener);
+            mParams.setContentMultiple(items, textColor, textSize, itemHeight, listener);
+            return this;
+        }
+
+        public Builder setInput(@NonNull String hint) {
+            return setInput(hint, 0);
+        }
+
+        public Builder setInput(@NonNull String hint, int textSize) {
+            return setInput(hint, ColorRes.title, textSize);
+        }
+
+        public Builder setInput(@NonNull String hint, int textColor, int textSize) {
+            return setInput(hint, textColor, textSize, -1, null);
+        }
+
+        /**
+         * 输入框
+         *
+         * @param hint
+         * @param textColor   字体颜色
+         * @param textSize    字体大小 px
+         * @param inputHeight 输入框高度 px
+         * @return
+         */
+        public Builder setInput(@NonNull String hint, int textColor, int textSize, int inputHeight, int[] margins) {
+            mParams.setContentInput(hint, textColor, textSize, inputHeight, margins);
             return this;
         }
 
@@ -148,6 +179,20 @@ public final class SuperDialog extends BaseDialog {
 
         public Builder setPositiveButton(String text, int textColor, int textSize,
                                          int height, OnClickPositiveListener listener) {
+            mParams.setPositiveButton(text, textColor, textSize, height, listener);
+            return this;
+        }
+
+        public Builder setPositiveButton(String text, OnClickPositiveInputListener listener) {
+            return setPositiveButton(text, 0, listener);
+        }
+
+        public Builder setPositiveButton(String text, int textColor, OnClickPositiveInputListener listener) {
+            return setPositiveButton(text, textColor, -1, -1, listener);
+        }
+
+        public Builder setPositiveButton(String text, int textColor, int textSize, int height,
+                                         OnClickPositiveInputListener listener) {
             mParams.setPositiveButton(text, textColor, textSize, height, listener);
             return this;
         }

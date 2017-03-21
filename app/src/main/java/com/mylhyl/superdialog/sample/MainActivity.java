@@ -11,6 +11,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1
-                , new String[]{"提示框", "确定框", "换头像", "消息框", "动态改变内容", "动态改变items"}));
+                , new String[]{"提示框", "确定框", "换头像", "消息框", "动态改变内容", "动态改变items", "输入框"}));
         listView.setOnItemClickListener(this);
     }
 
@@ -161,6 +162,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         builderBodyMultiple.refreshContent();
                     }
                 }, 3000);
+                break;
+            case 6:
+                new SuperDialog.Builder(this).setRadius(10)
+                        .setTitle("确定要回退")
+                        .setInput("请填写回退理由")
+                        .setPositiveButton("确定", new SuperDialog.OnClickPositiveInputListener() {
+                            @Override
+                            public void onClick(String text, View v) {
+                                Toast.makeText(v.getContext(), text, Toast.LENGTH_LONG).show();
+                            }
+                        }).build();
                 break;
         }
     }

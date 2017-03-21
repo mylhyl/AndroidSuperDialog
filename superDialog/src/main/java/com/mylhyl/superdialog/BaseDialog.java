@@ -276,7 +276,7 @@ abstract class BaseDialog extends DialogFragment {
             if (mParams.mProviderContent == null) {
                 throw new IllegalArgumentException("message is empty, please set");
             }
-            if (mParams.mProviderContent == null) {
+            if (mParams.mAlpha < 0 || mParams.mAlpha > 1) {
                 throw new IllegalArgumentException("alpha is 0.0 to 1.0, please setAlpha");
             }
             if (mParams.mWidth < 0 || mParams.mWidth > 1) {

@@ -10,9 +10,11 @@ public interface CreateLayout {
 
     void buildMultipleBody();
     void buildSingleBody();
+    View buildInputBody();
 
     void buildMultipleFooter();
     void buildSingleFooter();
+    void buildInputFooter(View view);
 
     View buildView();
 

@@ -48,6 +48,13 @@ class CreateLayoutImpl implements CreateLayout {
     }
 
     @Override
+    public View buildInputBody() {
+        BodyInputView bodyInputView = new BodyInputView(mContext, mParams);
+        mRoot.addView(bodyInputView);
+        return bodyInputView;
+    }
+
+    @Override
     public void buildMultipleFooter() {
         final ProviderFooterNegative footerNegative = mParams.mFooterNegative;
         final SuperDialog.OnClickNegativeListener onNegativeListener = footerNegative.getOnNegativeListener();
@@ -83,6 +90,17 @@ class CreateLayoutImpl implements CreateLayout {
         dividerViewV.setVertical();
         mRoot.addView(dividerViewV);
         mRoot.addView(new FooterView(mContext, mParams));
+    }
+
+    @Override
+    public void buildInputFooter(View view) {
+        DividerView dividerViewV = new DividerView(mContext);
+        dividerViewV.setVertical();
+        mRoot.addView(dividerViewV);
+        FooterView footerView = new FooterView(mContext, mParams);
+        BodyInputView bodyInputView = (BodyInputView) view;
+        footerView.setOnClickPositiveInputListener(bodyInputView);
+        mRoot.addView(footerView);
     }
 
     @Override

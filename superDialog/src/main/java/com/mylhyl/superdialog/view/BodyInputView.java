@@ -1,18 +1,19 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
+import android.widget.LinearLayout;
 
-import com.mylhyl.superdialog.callback.ProviderContent;
-import com.mylhyl.superdialog.callback.ProviderContentSingle;
+import com.mylhyl.superdialog.callback.ProviderContentInput;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
 
 /**
- * Created by hupei on 2016/3/8 19:30.
+ * Created by hupei on 2017/3/21
  */
-class BodySingleView extends SuperTextView {
+class BodyInputView extends AutoLinearLayout {
+    private SuperEditText mEditText;
     private Controller.Params mParams;
 
-    public BodySingleView(Context context, Controller.Params params) {
+    public BodyInputView(Context context, Controller.Params params) {
         super(context);
         mParams = params;
         initData();
@@ -35,18 +36,21 @@ class BodySingleView extends SuperTextView {
         } else {
             setBackgroundColor(mParams.mBackgroundColor);
         }
-        ProviderContentSingle providerContent = (ProviderContentSingle) mParams.mProviderContent;
+        ProviderContentInput providerContent = (ProviderContentInput) mParams.mProviderContent;
         if (providerContent == null) return;
-        setText(providerContent.getItems());
-        setTextSize(providerContent.getTextSize());
-        setTextColor(providerContent.getTextColor());
-        int[] padding = providerContent.getPadding();
-        setAutoPadding(padding[0], padding[1], padding[2], padding[3]);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        int[] margins = providerContent.getMargins();
+        params.setMargins(margins[0], margins[1], margins[2], margins[3]);
+        mEditText = new SuperEditText(getContext());
+        mEditText.setHint(providerContent.getItems());
+        mEditText.setTextSize(providerContent.getTextSize());
+        mEditText.setTextColor(providerContent.getTextColor());
+        mEditText.setHeight(providerContent.getInputHeight());
+        addView(mEditText, params);
     }
 
-    public void refreshText() {
-        ProviderContent providerContent = mParams.mProviderContent;
-        if (providerContent == null) return;
-        setText((String) providerContent.getItems());
+    public String getInputText() {
+        return mEditText.getText().toString();
     }
 }

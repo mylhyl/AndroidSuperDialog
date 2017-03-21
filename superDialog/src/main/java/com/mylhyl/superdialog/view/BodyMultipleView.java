@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mylhyl.superdialog.callback.ProviderContent;
+import com.mylhyl.superdialog.callback.ProviderContentMultiple;
 import com.mylhyl.superdialog.callback.ProviderHeader;
 import com.mylhyl.superdialog.res.drawable.BgBtn;
 import com.mylhyl.superdialog.res.values.ColorRes;
@@ -33,12 +33,11 @@ class BodyMultipleView extends ListView {
     }
 
     private void initData() {
-        mAdapter = new ItemAdapter(mParams);
-        setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
-                .MATCH_PARENT));
-        setSelector(new ColorDrawable(Color.TRANSPARENT));
-        final ProviderContent providerContent = mParams.mProviderContent;
+        final ProviderContentMultiple providerContent = (ProviderContentMultiple) mParams.mProviderContent;
         if (providerContent == null) return;
+        mAdapter = new ItemAdapter(mParams, providerContent);
+        setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        setSelector(new ColorDrawable(Color.TRANSPARENT));
         setDivider(new ColorDrawable(ColorRes.divider));
         setDividerHeight(1);
         setAdapter(mAdapter);
@@ -65,14 +64,14 @@ class BodyMultipleView extends ListView {
         private List<T> mItems;
         private int mRadius;
         private int mBackgroundColor;
-        private ProviderContent mProviderContent;
+        private ProviderContentMultiple mProviderContent;
         private ProviderHeader mProviderHeader;
 
-        public ItemAdapter(Controller.Params params) {
+        public ItemAdapter(Controller.Params params, ProviderContentMultiple providerContent) {
             this.mRadius = params.mRadius;
             this.mBackgroundColor = params.mBackgroundColor;
-            this.mProviderContent = params.mProviderContent;
             this.mProviderHeader = params.mProviderHeader;
+            this.mProviderContent = providerContent;
             Object entity = mProviderContent.getItems();
             if (entity != null && entity instanceof Iterable) {
                 this.mItems = (List<T>) entity;
@@ -121,16 +120,14 @@ class BodyMultipleView extends ListView {
             //top
             if (position == 0 && mProviderHeader == null) {
                 if (getCount() == 1)
-                    viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, mRadius,
-                            mRadius, mBackgroundColor));
-                else
-                    viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, 0, 0,
+                    viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, mRadius, mRadius,
                             mBackgroundColor));
+                else
+                    viewHolder.item.setBackgroundDrawable(new BgBtn(mRadius, mRadius, 0, 0, mBackgroundColor));
             }
             //bottom
             else if (position == getCount() - 1)
-                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, mRadius, mRadius,
-                        mBackgroundColor));
+                viewHolder.item.setBackgroundDrawable(new BgBtn(0, 0, mRadius, mRadius, mBackgroundColor));
 
                 //middle
             else

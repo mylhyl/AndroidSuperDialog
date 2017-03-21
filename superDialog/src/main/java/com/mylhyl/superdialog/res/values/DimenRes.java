@@ -33,4 +33,14 @@ public class DimenRes {
      * 底部按钮字体大小
      */
     public static final int footerTextSize = 40;
+
+    /**
+     * 输入框的高
+     */
+    public static final int inputHeight = 340;
+
+    /**
+     * 内容的外边距
+     */
+    public static final int[] contentMargins = {50, 45, 50, 55};
 }

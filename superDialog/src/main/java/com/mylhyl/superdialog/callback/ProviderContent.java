@@ -9,11 +9,7 @@ import com.mylhyl.superdialog.res.values.DimenRes;
  */
 public abstract class ProviderContent {
     public enum Mode {
-        SINGLE, MULTIPLE
-    }
-
-    public SuperDialog.OnItemClickListener getItemClickListener() {
-        return null;
+        SINGLE, MULTIPLE, INPUT
     }
 
     public Object getItems() {
@@ -30,14 +26,6 @@ public abstract class ProviderContent {
 
     public int getTextColor() {
         return ColorRes.content;
-    }
-
-    public int[] getPadding() {
-        return DimenRes.contentPadding;
-    }
-
-    public int getItemHeight() {
-        return DimenRes.headerHeight;
     }
 
     public void dismiss() {
