@@ -1,6 +1,7 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -99,9 +100,11 @@ class FooterView extends LinearLayout {
             mPositiveButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String text = inputView.getInputText();
+                    if(!TextUtils.isEmpty(text))
                     mFooterPositive.dismiss();
                     if (onPositiveInputListener != null)
-                        onPositiveInputListener.onClick(inputView.getInputText(),v);
+                        onPositiveInputListener.onClick(text,v);
                 }
             });
         }

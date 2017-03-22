@@ -1,6 +1,5 @@
 package com.mylhyl.superdialog.callback;
 
-import com.mylhyl.superdialog.SuperDialog;
 import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.res.values.DimenRes;
 

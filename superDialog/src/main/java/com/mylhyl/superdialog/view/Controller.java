@@ -140,11 +140,6 @@ public final class Controller {
          */
         public void setContentSingle(final String text, final int textColor, final int textSize, final int[] padding) {
             setMessage(new ProviderContentSingle() {
-                @Override
-                public void dismiss() {
-                    if (mDialogFragment != null)
-                        mDialogFragment.dismiss();
-                }
 
                 @Override
                 public String getItems() {
@@ -185,6 +180,7 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
+                    mDialogFragment = null;
                 }
 
                 @Override
@@ -226,11 +222,6 @@ public final class Controller {
         public void setContentInput(final String hint, final int textColor, final int textSize, final int inputHeight
                 , final int[] margins) {
             setMessage(new ProviderContentInput() {
-                @Override
-                public void dismiss() {
-                    if (mDialogFragment != null)
-                        mDialogFragment.dismiss();
-                }
 
                 @Override
                 public String getItems() {
@@ -271,6 +262,7 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
+                    mDialogFragment = null;
                 }
 
                 @Override
@@ -307,6 +299,7 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
+                    mDialogFragment = null;
                 }
 
                 @Override
@@ -344,6 +337,7 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
+                    mDialogFragment = null;
                 }
 
                 @Override
