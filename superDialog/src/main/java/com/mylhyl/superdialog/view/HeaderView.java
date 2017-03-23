@@ -1,6 +1,7 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.mylhyl.superdialog.callback.ProviderHeader;
 import com.mylhyl.superdialog.res.drawable.BgHeader;
@@ -20,6 +21,7 @@ class HeaderView extends SuperTextView {
         setText(providerHeader.getTitle());
         setTextSize(providerHeader.getTextSize());
         setHeight(providerHeader.getHeight());
+        setTextColor(providerHeader.getTextColor());
         //背景
         setBackgroundDrawable(new BgHeader(params));
     }

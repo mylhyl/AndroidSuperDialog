@@ -2,7 +2,7 @@ package com.mylhyl.superdialog;
 
 
 import android.app.Dialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -42,6 +42,12 @@ abstract class BaseDialog extends DialogFragment {
             dialog.setCanceledOnTouchOutside(mParams.mCanceledOnTouchOutside);
         }
         return dialog;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        mParams = null;
     }
 
     @Override
@@ -107,16 +113,10 @@ abstract class BaseDialog extends DialogFragment {
     }
 
     public static class Builder<T extends Builder> implements Serializable {
-        protected FragmentActivity mActivity;
         protected Controller.Params mParams;
 
         Builder(FragmentActivity activity) {
-            mActivity = activity;
-            mParams = new Controller.Params();
-        }
-
-        public Context getContext() {
-            return mActivity;
+            mParams = new Controller.Params(activity);
         }
 
         /**

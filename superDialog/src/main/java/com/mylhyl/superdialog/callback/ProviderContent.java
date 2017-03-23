@@ -11,12 +11,10 @@ public abstract class ProviderContent {
         SINGLE, MULTIPLE, INPUT
     }
 
+    public abstract Mode getMode();
+
     public Object getItems() {
         return null;
-    }
-
-    public Mode getMode() {
-        return Mode.SINGLE;
     }
 
     public int getTextSize() {
@@ -25,8 +23,5 @@ public abstract class ProviderContent {
 
     public int getTextColor() {
         return ColorRes.content;
-    }
-
-    public void dismiss() {
     }
 }

@@ -1,6 +1,7 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.LinearLayout;
 
 import com.mylhyl.superdialog.callback.ProviderContentInput;
@@ -44,6 +45,7 @@ class BodyInputView extends AutoLinearLayout {
         params.setMargins(margins[0], margins[1], margins[2], margins[3]);
         mEditText = new SuperEditText(getContext());
         mEditText.setHint(providerContent.getItems());
+        mEditText.setHintTextColor(providerContent.getHintTextColor());
         mEditText.setTextSize(providerContent.getTextSize());
         mEditText.setTextColor(providerContent.getTextColor());
         mEditText.setHeight(providerContent.getInputHeight());

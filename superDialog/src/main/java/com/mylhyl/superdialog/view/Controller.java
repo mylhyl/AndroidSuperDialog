@@ -2,6 +2,7 @@ package com.mylhyl.superdialog.view;
 
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,8 +30,8 @@ public final class Controller {
     private Params mParams;
     private CreateLayout createLayout;
 
-    public Controller(Context context, Params params) {
-        this.mContext = context;
+    public Controller(Params params) {
+        this.mContext = params.mActivity.getApplicationContext();
         this.mParams = params;
     }
 
@@ -77,6 +78,7 @@ public final class Controller {
 
     public static class Params implements Serializable {
         public DialogFragment mDialogFragment;
+        public FragmentActivity mActivity;
         public ProviderHeader mProviderHeader;
         public ProviderContent mProviderContent;
         public ProviderFooterNegative mFooterNegative;
@@ -94,28 +96,37 @@ public final class Controller {
         public boolean isDimEnabled = true;
         public SuperDialog.ConfigDialog mConfigDialog;
 
-        public void setTitle(ProviderHeader providerHeader) {
+        public Params(FragmentActivity activity) {
+            this.mActivity = activity;
+        }
+
+        private void setProviderHeader(ProviderHeader providerHeader) {
             this.mProviderHeader = providerHeader;
         }
 
-        public void setMessage(ProviderContent providerContent) {
+        private void setProviderContent(ProviderContent providerContent) {
             this.mProviderContent = providerContent;
         }
 
-        public void setNegativeButton(ProviderFooterNegative footerNegative) {
+        private void setProviderFooterNegative(ProviderFooterNegative footerNegative) {
             this.mFooterNegative = footerNegative;
         }
 
-        public void setPositiveButton(ProviderFooterPositive footerPositive) {
+        private void setProviderFooterPositive(ProviderFooterPositive footerPositive) {
             this.mFooterPositive = footerPositive;
         }
 
-        public void setTitle(final String title, final int textSize, final int height) {
-            setTitle(new ProviderHeader() {
+        public void setTitle(final String title, final int textColor, final int textSize, final int height) {
+            setProviderHeader(new ProviderHeader() {
 
                 @Override
                 public String getTitle() {
                     return title;
+                }
+
+                @Override
+                public int getTextColor() {
+                    return textColor != 0 ? textColor : super.getTextColor();
                 }
 
                 @Override
@@ -127,6 +138,7 @@ public final class Controller {
                 public int getHeight() {
                     return height > 0 ? height : super.getHeight();
                 }
+
             });
         }
 
@@ -139,7 +151,12 @@ public final class Controller {
          * @param padding   文本内间距
          */
         public void setContentSingle(final String text, final int textColor, final int textSize, final int[] padding) {
-            setMessage(new ProviderContentSingle() {
+            setProviderContent(new ProviderContentSingle() {
+
+                @Override
+                public int[] getPadding() {
+                    return padding != null ? padding : DimenRes.contentPadding;
+                }
 
                 @Override
                 public String getItems() {
@@ -156,10 +173,6 @@ public final class Controller {
                     return textSize > 0 ? textSize : super.getTextSize();
                 }
 
-                @Override
-                public int[] getPadding() {
-                    return padding != null ? padding : super.getPadding();
-                }
             });
         }
 
@@ -175,12 +188,21 @@ public final class Controller {
         public void setContentMultiple(final Object items, final int textColor, final int textSize, final int
                 itemHeight,
                                        final SuperDialog.OnItemClickListener listener) {
-            setMessage(new ProviderContentMultiple() {
+            setProviderContent(new ProviderContentMultiple() {
                 @Override
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
-                    mDialogFragment = null;
+                }
+
+                @Override
+                public int getItemHeight() {
+                    return itemHeight > 0 ? itemHeight : DimenRes.headerHeight;
+                }
+
+                @Override
+                public SuperDialog.OnItemClickListener getItemClickListener() {
+                    return listener;
                 }
 
                 @Override
@@ -197,16 +219,6 @@ public final class Controller {
                 public int getTextSize() {
                     return textSize > 0 ? textSize : super.getTextSize();
                 }
-
-                @Override
-                public int getItemHeight() {
-                    return itemHeight > 0 ? itemHeight : super.getItemHeight();
-                }
-
-                @Override
-                public SuperDialog.OnItemClickListener getItemClickListener() {
-                    return listener;
-                }
             });
         }
 
@@ -221,7 +233,22 @@ public final class Controller {
          */
         public void setContentInput(final String hint, final int textColor, final int textSize, final int inputHeight
                 , final int[] margins) {
-            setMessage(new ProviderContentInput() {
+            setProviderContent(new ProviderContentInput() {
+
+                @Override
+                public int[] getMargins() {
+                    return margins != null ? margins : DimenRes.contentMargins;
+                }
+
+                @Override
+                public int getInputHeight() {
+                    return inputHeight > 0 ? inputHeight : DimenRes.inputHeight;
+                }
+
+                @Override
+                public int getHintTextColor() {
+                    return ColorRes.content;
+                }
 
                 @Override
                 public String getItems() {
@@ -230,7 +257,7 @@ public final class Controller {
 
                 @Override
                 public int getTextColor() {
-                    return textColor != 0 ? textColor : super.getTextColor();
+                    return textColor != 0 ? textColor : ColorRes.title;
                 }
 
                 @Override
@@ -238,21 +265,13 @@ public final class Controller {
                     return textSize > 0 ? textSize : super.getTextSize();
                 }
 
-                @Override
-                public int getInputHeight() {
-                    return inputHeight > 0 ? inputHeight : super.getInputHeight();
-                }
 
-                @Override
-                public int[] getMargins() {
-                    return margins != null ? margins : super.getMargins();
-                }
             });
         }
 
         public void setNegativeButton(final String text, final int textColor, final int textSize, final int height,
                                       final SuperDialog.OnClickNegativeListener listener) {
-            setNegativeButton(new ProviderFooterNegative() {
+            setProviderFooterNegative(new ProviderFooterNegative() {
                 @Override
                 public String getTitle() {
                     return text;
@@ -262,7 +281,6 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
-                    mDialogFragment = null;
                 }
 
                 @Override
@@ -277,7 +295,7 @@ public final class Controller {
 
                 @Override
                 public int getTextColor() {
-                    return textColor != 0 ? textColor : super.getTextColor();
+                    return textColor != 0 ? textColor : ColorRes.negativeButton;
                 }
 
                 @Override
@@ -289,7 +307,7 @@ public final class Controller {
 
         public void setPositiveButton(final String text, final int textColor, final int textSize, final int height,
                                       final SuperDialog.OnClickPositiveListener listener) {
-            setPositiveButton(new ProviderFooterPositive() {
+            setProviderFooterPositive(new ProviderFooterPositive() {
                 @Override
                 public String getTitle() {
                     return text;
@@ -299,7 +317,6 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
-                    mDialogFragment = null;
                 }
 
                 @Override
@@ -327,7 +344,7 @@ public final class Controller {
 
         public void setPositiveButton(final String text, final int textColor, final int textSize, final int height,
                                       final SuperDialog.OnClickPositiveInputListener listener) {
-            setPositiveButton(new ProviderFooterPositiveInput() {
+            setProviderFooterPositive(new ProviderFooterPositiveInput() {
                 @Override
                 public String getTitle() {
                     return text;
@@ -337,7 +354,6 @@ public final class Controller {
                 public void dismiss() {
                     if (mDialogFragment != null)
                         mDialogFragment.dismiss();
-                    mDialogFragment = null;
                 }
 
                 @Override

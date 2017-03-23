@@ -1,6 +1,7 @@
 package com.mylhyl.superdialog;
 
 import android.app.Dialog;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -43,7 +44,7 @@ public final class SuperDialog extends BaseDialog {
     private Controller mController;
 
     private void setController(Builder builder) {
-        this.mController = new Controller(builder.getContext(), builder.mParams);
+        this.mController = new Controller(builder.mParams);
         mController.apply();
         mParams = builder.mParams;
     }
@@ -66,46 +67,134 @@ public final class SuperDialog extends BaseDialog {
             dialog = new SuperDialog();
         }
 
-        public Builder setTitle(String title) {
-            return setTitle(title, -1);
+        /**
+         * 设置标题
+         *
+         * @param title 标题文本
+         * @return
+         */
+        public Builder setTitle(@NonNull String title) {
+            return setTitle(title, 0);
         }
 
-        public Builder setTitle(String title, int textSize) {
-            return setTitle(title, textSize, -1);
+        /**
+         * 设置标题
+         *
+         * @param title     标题文本
+         * @param textColor 标题文本字体颜色
+         * @return
+         */
+        public Builder setTitle(@NonNull String title, @ColorInt int textColor) {
+            return setTitle(title, textColor, -1);
         }
 
-        public Builder setTitle(String title, int textSize, int height) {
-            mParams.setTitle(title, textSize, height);
+        /**
+         * 设置标题
+         *
+         * @param title     标题文本
+         * @param textColor 标题文本字体颜色
+         * @param textSize  标题文本字体大小
+         * @return
+         */
+        public Builder setTitle(@NonNull String title, @ColorInt int textColor, int textSize) {
+            return setTitle(title, textColor, textSize, -1);
+        }
+
+        /**
+         * 设置标题
+         *
+         * @param title     标题文本
+         * @param textColor 标题文本字体颜色
+         * @param textSize  标题文本字体大小
+         * @param height    标题高度
+         * @return
+         */
+        public Builder setTitle(@NonNull String title, @ColorInt int textColor, int textSize, int height) {
+            mParams.setTitle(title, textColor, textSize, height);
             return this;
         }
 
+        /**
+         * 设置内容
+         *
+         * @param text 内容文本
+         * @return
+         */
         public Builder setMessage(@NonNull String text) {
             return setMessage(text, 0);
         }
 
-        public Builder setMessage(@NonNull String text, int textColor) {
+        /**
+         * 设置内容
+         *
+         * @param text      内容文本
+         * @param textColor 内容文本字体颜色
+         * @return
+         */
+        public Builder setMessage(@NonNull String text, @ColorInt int textColor) {
             return setMessage(text, textColor, -1);
         }
 
-        public Builder setMessage(@NonNull String text, int textColor, int textSize) {
+        /**
+         * 设置内容
+         *
+         * @param text      内容文本
+         * @param textColor 内容文本字体颜色
+         * @param textSize  内容文本字体大小
+         * @return
+         */
+        public Builder setMessage(@NonNull String text, @ColorInt int textColor, int textSize) {
             return setMessage(text, textColor, textSize, null);
         }
 
-        public Builder setMessage(@NonNull final String text, final int textColor, final int textSize,
+        /**
+         * 设置内容
+         *
+         * @param text      内容文本
+         * @param textColor 内容文本字体颜色
+         * @param textSize  内容文本字体大小
+         * @param padding   内容文本内间距{int left, int top, int right, int bottom}
+         * @return
+         */
+        public Builder setMessage(@NonNull final String text, @ColorInt final int textColor, final int textSize,
                                   final int[] padding) {
             mParams.setContentSingle(text, textColor, textSize, padding);
             return this;
         }
 
+        /**
+         * 设置列表内容
+         *
+         * @param items    数据源 Array or Iterable
+         * @param listener
+         * @return
+         */
         public Builder setItems(@NonNull Object items, OnItemClickListener listener) {
-            return setItems(items, 0, listener);
+            return setItems(items, -1, listener);
         }
 
+        /**
+         * 设置列表内容
+         *
+         * @param items    数据源 Array or Iterable
+         * @param textSize 数据源字体大小
+         * @param listener
+         * @return
+         */
         public Builder setItems(@NonNull Object items, int textSize, OnItemClickListener listener) {
             return setItems(items, 0, textSize, listener);
         }
 
-        public Builder setItems(@NonNull Object items, int textColor, int textSize, OnItemClickListener
+        /**
+         * 设置列表内容
+         *
+         * @param items     数据源 Array or Iterable
+         * @param textColor 数据源字体颜色
+         * @param textSize  数据源字体大小
+         * @param listener
+         * @return
+         */
+        public Builder setItems(@NonNull Object items, @ColorInt int textColor, int textSize, OnItemClickListener
                 listener) {
             return setItems(items, textColor, textSize, -1, listener);
         }
@@ -120,35 +209,57 @@ public final class SuperDialog extends BaseDialog {
          * @param listener   列表点击事件
          * @return
          */
-        public Builder setItems(@NonNull Object items, int textColor, int textSize,
-                                int itemHeight, OnItemClickListener listener) {
+        public Builder setItems(@NonNull Object items, @ColorInt int textColor, int textSize, int itemHeight,
+                                OnItemClickListener listener) {
             setGravity(Gravity.BOTTOM);
             mParams.setContentMultiple(items, textColor, textSize, itemHeight, listener);
             return this;
         }
 
+        /**
+         * 设置输入框
+         *
+         * @param hint {@link android.widget.EditText#setHint(CharSequence) 输入内容的提示语}
+         * @return
+         */
         public Builder setInput(@NonNull String hint) {
             return setInput(hint, 0);
         }
 
+        /**
+         * 设置输入框
+         *
+         * @param hint     {@link android.widget.EditText#setHint(CharSequence) 输入内容的提示语}
+         * @param textSize 字体大小
+         * @return
+         */
         public Builder setInput(@NonNull String hint, int textSize) {
-            return setInput(hint, ColorRes.title, textSize);
+            return setInput(hint, 0, textSize);
         }
 
-        public Builder setInput(@NonNull String hint, int textColor, int textSize) {
+        /**
+         * 设置输入框
+         *
+         * @param hint      {@link android.widget.EditText#setHint(CharSequence) 输入内容的提示语}
+         * @param textColor 字体颜色
+         * @param textSize  字体大小
+         * @return
+         */
+        public Builder setInput(@NonNull String hint, @ColorInt int textColor, int textSize) {
             return setInput(hint, textColor, textSize, -1, null);
         }
 
         /**
          * 输入框
          *
-         * @param hint
+         * @param hint        {@link android.widget.EditText#setHint(CharSequence) 输入内容的提示语}
          * @param textColor   字体颜色
          * @param textSize    字体大小 px
          * @param inputHeight 输入框高度 px
          * @return
          */
-        public Builder setInput(@NonNull String hint, int textColor, int textSize, int inputHeight, int[] margins) {
+        public Builder setInput(@NonNull String hint, @ColorInt int textColor, int textSize, int inputHeight, int[]
+                margins) {
             mParams.setContentInput(hint, textColor, textSize, inputHeight, margins);
             return this;
         }
@@ -221,7 +332,7 @@ public final class SuperDialog extends BaseDialog {
         }
 
         public void show() {
-            dialog.show(mActivity.getSupportFragmentManager(), "superDialog");
+            dialog.show(mParams.mActivity.getSupportFragmentManager(), "superDialog");
         }
     }
 }

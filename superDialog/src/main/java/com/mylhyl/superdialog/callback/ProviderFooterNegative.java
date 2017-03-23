@@ -9,7 +9,4 @@ import com.mylhyl.superdialog.res.values.ColorRes;
 public abstract class ProviderFooterNegative extends ProviderFooter {
     public abstract SuperDialog.OnClickNegativeListener getOnNegativeListener();
 
-    public int getTextColor() {
-        return ColorRes.negativeButton;
-    }
 }

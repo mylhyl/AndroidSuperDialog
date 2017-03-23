@@ -71,13 +71,4 @@ public class SuperEditText extends EditText {
         int dimenTextSize = AutoUtils.scaleValue((int) size);
         setTextSize(TypedValue.COMPLEX_UNIT_PX, dimenTextSize);
     }
-
-    public void setAutoPadding(int left, int top, int right, int bottom) {
-        int dimenLeft = AutoUtils.scaleValue(left);
-        int dimenTop = AutoUtils.scaleValue(top);
-        int dimenRight = AutoUtils.scaleValue(right);
-        int dimenBottom = AutoUtils.scaleValue(bottom);
-        super.setPadding(dimenLeft+10, dimenTop, dimenRight, dimenBottom);
-    }
-
 }
