@@ -1,17 +1,20 @@
 package com.mylhyl.superdialog.sample;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +24,8 @@ import com.mylhyl.superdialog.res.values.ColorRes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView
+        .OnItemLongClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1
                 , new String[]{"提示框", "确定框", "换头像", "消息框", "动态改变内容", "动态改变items", "输入框"}));
         listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -84,14 +89,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         //注意
                         //.setGravity(Gravity.CENTER)请在setItems之后设置setGravity
                         .setNegativeButton("取消", null)
-//                        .setConfigDialog(new SuperDialog.ConfigDialog() {
-//                            @Override
-//                            public void onConfig(Dialog dialog, Window window, WindowManager
-//                                    .LayoutParams wlp, DisplayMetrics dm) {
-//                                //window.setWindowAnimations(R.style.dialogWindowAnim);
-//                                wlp.y = 100;//底部距离
-//                            }
-//                        })
+                        .setConfigDialog(new SuperDialog.ConfigDialog() {
+                            @Override
+                            public void onConfig(Dialog dialog, Window window, WindowManager
+                                    .LayoutParams wlp, DisplayMetrics dm) {
+                                //window.setWindowAnimations(R.style.dialogWindowAnim);
+                                wlp.y = 100;//底部距离
+                            }
+                        })
                         .setItemsBottomMargin(20)
                         .setWindowAnimations(R.style.dialogWindowAnim)//动画
                         .build();
@@ -175,5 +180,37 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         }).build();
                 break;
         }
+    }
+
+    public void onClickBtn1() {
+        new SuperDialog.Builder(this).setTitle("边距").setMessage("setWidth将无效")
+                .setPadding(10, 0, 10, 0)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", new SuperDialog.OnClickPositiveListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(v.getContext(), "点了确定", Toast.LENGTH_LONG).show();
+                    }
+                }).build();
+    }
+
+    public void onClickBtn2(View v) {
+        final String[] strings = {"增加", "删除"};
+        new SuperDialog.Builder(this).setDimEnabled(false).setWidth(0.25f)
+                .setBackgroundColor(Color.BLACK).setAlpha(0.5f).setRadius(0)
+                .setShowAsDropDown(v, 0, 0)
+                .setItems(strings, new SuperDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Toast.makeText(MainActivity.this, strings[position], Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        onClickBtn2(view);
+        return false;
     }
 }

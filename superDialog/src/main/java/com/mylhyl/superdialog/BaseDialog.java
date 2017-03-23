@@ -3,6 +3,7 @@ package com.mylhyl.superdialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -18,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.mylhyl.superdialog.auto.AutoUtils;
+import com.mylhyl.superdialog.callback.ProviderContent;
 import com.mylhyl.superdialog.view.Controller;
 
 import java.io.Serializable;
@@ -73,14 +75,32 @@ abstract class BaseDialog extends DialogFragment {
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);//获取屏幕宽
         wlp.width = (int) (dm.widthPixels * mParams.mWidth);//宽度按屏幕大小的百分比设置
-        wlp.gravity = mParams.mGravity;
-        //如果是底部显示，则向上移20px
-        if (wlp.gravity == Gravity.BOTTOM) {
-            mParams.y = 20;
+        //setShowAsDropDown
+        if (mParams.mAsDropDownAnchor != null) {
+            View anchor = mParams.mAsDropDownAnchor;
+            wlp.gravity = Gravity.START | Gravity.TOP;
+            int height = anchor.getHeight();
+            int[] location = new int[2];
+            anchor.getLocationOnScreen(location);
+            int x = location[0];
+            int y = location[1];
+            wlp.x = mParams.x + x;
+            wlp.y = mParams.y + y + height - getSystemBarHeight();
         }
-        wlp.x = AutoUtils.scaleValue(mParams.x);
-        wlp.y = AutoUtils.scaleValue(mParams.y);
-
+        //setShowAtLocation
+        else if (mParams.mAtLocationGravity != Gravity.NO_GRAVITY) {
+            wlp.gravity = mParams.mAtLocationGravity;
+            wlp.x = mParams.x;
+            wlp.y = (int) (mParams.y - getSystemBarHeight());
+        }
+        //setGravity
+        else {
+            wlp.gravity = mParams.mGravity;
+            //如果是列表模式并且显示在底部，则向上移20px
+            if (mParams.mProviderContent.getMode() == ProviderContent.Mode.MULTIPLE && wlp.gravity == Gravity.BOTTOM) {
+                wlp.y = 20;
+            }
+        }
         //边距
         if (mParams.mPadding != null) {
             int[] padding = mParams.mPadding;
@@ -102,6 +122,23 @@ abstract class BaseDialog extends DialogFragment {
             mParams.mConfigDialog.onConfig(dialog, window, wlp, dm);
         }
         window.setAttributes(wlp);
+    }
+
+    private int getSystemBarHeight() {
+        Rect rectangle = new Rect();
+        mParams.mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        return rectangle.top;
+    }
+
+    private int getSystemTitleHeight() {
+        //应用区域
+        Rect outRect1 = new Rect();
+        mParams.mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
+        //View绘制区域
+        Rect outRect2 = new Rect();
+        mParams.mActivity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getDrawingRect(outRect2);
+        int height = outRect1.height() - outRect2.height();
+        return height;
     }
 
     @Override
@@ -233,24 +270,41 @@ abstract class BaseDialog extends DialogFragment {
         }
 
         /**
-         * 指定位置显示
+         * 指定控件正左下方显示，无偏移
          *
-         * @param x
-         * @param y
+         * @param anchor 控件
+         * @return
          */
-        public T setShowAtLocation(int x, int y) {
-            return setShowAtLocation(mParams.mGravity, x, y);
+        public T setShowAsDropDown(View anchor) {
+            mParams.mAsDropDownAnchor = anchor;
+            return (T) this;
         }
 
         /**
-         * 指定位置显示
+         * 指定控件正左下方显示，有偏移
+         *
+         * @param anchor
+         * @param x      相对于控件偏移x
+         * @param y      相对于控件偏移y
+         * @return
+         */
+        public T setShowAsDropDown(View anchor, int x, int y) {
+            mParams.mAsDropDownAnchor = anchor;
+            mParams.x = x;
+            mParams.y = y;
+            return (T) this;
+        }
+
+        /**
+         * 相对于父控件的位置，可以设置偏移或无偏移
          *
          * @param gravity {@link Gravity}
          * @param x
          * @param y
          */
         public T setShowAtLocation(int gravity, int x, int y) {
-            mParams.mGravity = gravity;
+            if (gravity <= 0) gravity = Gravity.START | Gravity.TOP;
+            mParams.mAtLocationGravity = gravity;
             mParams.x = x;
             mParams.y = y;
             return (T) this;

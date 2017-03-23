@@ -92,6 +92,8 @@ public final class Controller {
         public float mWidth = 0.9f;
         public int[] mPadding;
         public int mItemsBottomMargin = 10;
+        public View mAsDropDownAnchor = null;
+        public int mAtLocationGravity = Gravity.NO_GRAVITY;
         public int mAnimStyle, x, y;
         public boolean isDimEnabled = true;
         public SuperDialog.ConfigDialog mConfigDialog;
