@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.1.0'
+ compile 'com.mylhyl:superDialog:1.2.0'
 ```
 
 eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压取出jar包
@@ -58,12 +58,13 @@ eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhy
                         .setNegativeButton("取消", null)
                         .build();
 ```
-
+* 输入框 `setInput()`
 * 宽度`setWidth(@FloatRange(from = 0.0, to = 1.0) float width)`
 * 边距`setPadding(int left, int top, int right, int bottom)`
 * 动画`setWindowAnimations(int animStyle)`
 * 列表框距离下方按钮的间距`setItemsBottomMargin(int bottomMargin)`
 * 指定位置显示`setShowAtLocation(int gravity, int x, int y)`
+* 指定控件左下方 `setShowAsDropDown(View anchor, int x, int y)`
 * 设置背景是否昏暗`setDimEnabled(boolean dimEnabled)`
 * `setConfigDialog`更多使用
 ```java
@@ -94,6 +95,8 @@ QQ交流群:435173211
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.2.0 增加输入框，优化细节
 
 > 1.1.0 增加 manifest.xml 中配置大小
 

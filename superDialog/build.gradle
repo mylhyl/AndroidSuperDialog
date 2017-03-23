@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "2017.3.21"
+        versionName "2017.3.23"
     }
     buildTypes {
         release {
@@ -26,7 +26,7 @@ def gitUrl = 'https://github.com/mylhyl/AndroidSuperDialog.git'
 //唯一包名
 group = "com.mylhyl"
 //版本号
-version = "1.1.0"
+version = "1.2.0"
 
 install {
     repositories.mavenInstaller {
