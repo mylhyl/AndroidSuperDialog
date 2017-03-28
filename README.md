@@ -16,7 +16,7 @@
 # 引入
 
 ```xml
- compile 'com.mylhyl:superDialog:1.2.0'
+ compile 'com.mylhyl:superDialog:1.2.1'
 ```
 
 eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhyl/superDialog/), 然后用zip解压取出jar包
@@ -95,6 +95,8 @@ QQ交流群:435173211
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
 # 版本
+
+> 1.2.1 修复确定事件不能传`null`的问题
 
 > 1.2.0 增加输入框，优化细节
 

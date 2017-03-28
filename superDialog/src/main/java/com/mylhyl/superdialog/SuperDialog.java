@@ -294,17 +294,17 @@ public final class SuperDialog extends BaseDialog {
             return this;
         }
 
-        public Builder setPositiveButton(String text, OnClickPositiveInputListener listener) {
-            return setPositiveButton(text, 0, listener);
+        public Builder setPositiveInputButton(String text, @NonNull OnClickPositiveInputListener listener) {
+            return setPositiveInputButton(text, 0, listener);
         }
 
-        public Builder setPositiveButton(String text, int textColor, OnClickPositiveInputListener listener) {
-            return setPositiveButton(text, textColor, -1, -1, listener);
+        public Builder setPositiveInputButton(String text, int textColor, OnClickPositiveInputListener listener) {
+            return setPositiveInputButton(text, textColor, -1, -1, listener);
         }
 
-        public Builder setPositiveButton(String text, int textColor, int textSize, int height,
-                                         OnClickPositiveInputListener listener) {
-            mParams.setPositiveButton(text, textColor, textSize, height, listener);
+        public Builder setPositiveInputButton(String text, int textColor, int textSize, int height,
+                                              OnClickPositiveInputListener listener) {
+            mParams.setPositiveInputButton(text, textColor, textSize, height, listener);
             return this;
         }
 

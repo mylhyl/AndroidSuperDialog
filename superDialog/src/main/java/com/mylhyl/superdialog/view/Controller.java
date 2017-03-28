@@ -344,7 +344,7 @@ public final class Controller {
         }
 
 
-        public void setPositiveButton(final String text, final int textColor, final int textSize, final int height,
+        public void setPositiveInputButton(final String text, final int textColor, final int textSize, final int height,
                                       final SuperDialog.OnClickPositiveInputListener listener) {
             setProviderFooterPositive(new ProviderFooterPositiveInput() {
                 @Override

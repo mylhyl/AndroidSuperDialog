@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 new SuperDialog.Builder(this).setRadius(10)
                         .setTitle("确定要回退")
                         .setInput("请填写回退理由")
-                        .setPositiveButton("确定", new SuperDialog.OnClickPositiveInputListener() {
+                        .setPositiveInputButton("确定", new SuperDialog.OnClickPositiveInputListener() {
                             @Override
                             public void onClick(String text, View v) {
                                 Toast.makeText(v.getContext(), text, Toast.LENGTH_LONG).show();
@@ -186,12 +186,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         new SuperDialog.Builder(this).setTitle("边距").setMessage("setWidth将无效")
                 .setPadding(10, 0, 10, 0)
                 .setNegativeButton("取消", null)
-                .setPositiveButton("确定", new SuperDialog.OnClickPositiveListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(v.getContext(), "点了确定", Toast.LENGTH_LONG).show();
-                    }
-                }).build();
+                .setPositiveButton("确定", null).build();
     }
 
     public void onClickBtn2(View v) {
