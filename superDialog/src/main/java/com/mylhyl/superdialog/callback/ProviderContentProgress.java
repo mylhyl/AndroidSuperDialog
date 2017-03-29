@@ -9,8 +9,6 @@ public abstract class ProviderContentProgress extends ProviderContent {
 
     public abstract int[] getMargins();
 
-    public abstract int getMax();
-
     public abstract Drawable getProgressDrawable();
 
     public abstract int getHeight();

@@ -83,11 +83,11 @@ public final class Controller {
             createView().startAnimation(animation);
     }
 
-    public void refreshProviderContentProgress(int progress) {
+    public void refreshProviderContentProgress(int max, int progress) {
         ProviderContent providerContent = mParams.mProviderContent;
         if (providerContent != null && providerContent.getMode() == ProviderContent.Mode.PROGRESSBAR) {
             BodyProgressView bodyProgressView = (BodyProgressView) createLayout.findProgressBody();
-            if (bodyProgressView != null) bodyProgressView.setProgress(progress);
+            if (bodyProgressView != null) bodyProgressView.setProgress(max, progress);
         }
     }
 
@@ -284,8 +284,7 @@ public final class Controller {
             });
         }
 
-        public void setContentProgress(final int max, @DrawableRes final int progressDrawableId, final int height,
-                                       final int[] margins) {
+        public void setContentProgress(@DrawableRes final int progressDrawable, final int height, final int[] margins) {
             setProviderContent(new ProviderContentProgress() {
 
                 @Override
@@ -294,13 +293,8 @@ public final class Controller {
                 }
 
                 @Override
-                public int getMax() {
-                    return max > 0 ? max : 100;
-                }
-
-                @Override
                 public Drawable getProgressDrawable() {
-                    return progressDrawableId != 0 ? mActivity.getResources().getDrawable(progressDrawableId) : null;
+                    return progressDrawable != 0 ? mActivity.getResources().getDrawable(progressDrawable) : null;
                 }
 
                 @Override

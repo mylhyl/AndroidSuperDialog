@@ -53,8 +53,8 @@ public final class SuperDialog extends BaseDialog {
         mController.refreshProviderContent(animation);
     }
 
-    public void refreshProviderContentProgress(int progress) {
-        mController.refreshProviderContentProgress(progress);
+    public void refreshProviderContentProgress(int max, int progress) {
+        mController.refreshProviderContentProgress(max, progress);
     }
 
     @Override
@@ -268,20 +268,22 @@ public final class SuperDialog extends BaseDialog {
             return this;
         }
 
-        public Builder setProgress(int max) {
-            return setProgress(max, 0);
+        /**
+         * 设置进度条模式
+         *
+         * @param progressDrawableId 进度样式，默认0
+         * @return
+         */
+        public Builder setProgress(@DrawableRes int progressDrawableId) {
+            return setProgress(progressDrawableId, 0);
         }
 
-        public Builder setProgress(int max, @DrawableRes int progressDrawableId) {
-            return setProgress(max, progressDrawableId, 0);
+        public Builder setProgress(@DrawableRes int progressDrawableId, int height) {
+            return setProgress(progressDrawableId, height, null);
         }
 
-        public Builder setProgress(int max, @DrawableRes int progressDrawableId, int height) {
-            return setProgress(max, progressDrawableId, height, null);
-        }
-
-        public Builder setProgress(int max, @DrawableRes int progressDrawableId, int height, int[] margins) {
-            mParams.setContentProgress(max, progressDrawableId, height, margins);
+        public Builder setProgress(@DrawableRes int progressDrawableId, int height, int[] margins) {
+            mParams.setContentProgress(progressDrawableId, height, margins);
             return this;
         }
 
@@ -355,10 +357,11 @@ public final class SuperDialog extends BaseDialog {
         /**
          * 设置进度条刻度
          *
+         * @param max
          * @param progress
          */
-        public void refreshProgress(int progress) {
-            dialog.refreshProviderContentProgress(progress);
+        public void refreshProgress(int max, int progress) {
+            dialog.refreshProviderContentProgress(max, progress);
         }
 
         public void show() {

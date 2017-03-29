@@ -3,6 +3,7 @@ package com.mylhyl.superdialog.sample;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -21,11 +22,12 @@ import android.widget.Toast;
 
 import com.mylhyl.superdialog.SuperDialog;
 import com.mylhyl.superdialog.res.values.ColorRes;
+import com.mylhyl.superdialog.sample.okFile.ReqProgressCallBack;
+import com.mylhyl.superdialog.sample.okFile.okFileHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView
         .OnItemLongClickListener {
@@ -183,36 +185,48 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         }).build();
                 break;
             case 7:
-                final int max = 222;
-                final Timer timer = new Timer();
-                final SuperDialog.Builder progressDialog = new SuperDialog.Builder(this);
-                progressDialog.setCanceledOnTouchOutside(false).setCancelable(false)
-                        .setTitle("正在清理数据")
-                        .setProgress(max)
-//                        .setProgress(max, R.drawable.progress_h)
-                        .setNegativeButton("取消", new SuperDialog.OnClickNegativeListener() {
+                new SuperDialog.Builder(this).setTitle("发现新版本").setMessage("是否更新？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("更新", new SuperDialog.OnClickPositiveListener() {
                             @Override
                             public void onClick(View v) {
-                                timer.cancel();
+                                downFile();
                             }
-                        });
-                final DialogFragment dialogFragment = progressDialog.build();
-
-                TimerTask timerTask = new TimerTask() {
-                    int progress = 0;
-
-                    @Override
-                    public void run() {
-                        progress++;
-                        if (progress >= max)
-                            dialogFragment.dismiss();
-                        else
-                            progressDialog.refreshProgress(progress);
-                    }
-                };
-                timer.schedule(timerTask, 0, 50);
+                        }).build();
                 break;
         }
+    }
+
+    private void downFile() {
+        final SuperDialog.Builder progressDialog = new SuperDialog.Builder(this);
+        progressDialog.setCanceledOnTouchOutside(false).setCancelable(false)
+                .setProgress(0)
+                .setTitle("正在下载").setNegativeButton("取消", new SuperDialog.OnClickNegativeListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        final DialogFragment dialogFragment = progressDialog.build();
+        okFileHelper.getInstance(MainActivity.this)
+                .downLoadFile("http://hot.m.shouji.360tpcdn.com/170228/f7531b825dae5ebe2be09c5ccd3b8b4e/com" +
+                        ".qihoo.appstore_300070026.apk", Environment.getExternalStorageDirectory()
+                        .getAbsolutePath(), new ReqProgressCallBack<File>() {
+                    @Override
+                    public void onProgress(long total, long current) {
+                        progressDialog.refreshProgress((int) total, (int) current);
+                    }
+
+                    @Override
+                    public void onReqSuccess(File result) {
+                        if (dialogFragment != null)
+                            dialogFragment.dismiss();
+                    }
+
+                    @Override
+                    public void onReqFailed(String errorMsg) {
+                        Toast.makeText(MainActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public void onClickBtn1() {

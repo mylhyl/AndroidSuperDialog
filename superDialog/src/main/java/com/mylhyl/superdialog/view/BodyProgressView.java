@@ -73,7 +73,6 @@ class BodyProgressView extends AutoLinearLayout {
             mProgressBar.setProgressDrawable(progressDrawable);
         }
 
-        mProgressBar.setMax(providerContent.getMax());
         addView(mProgressBar, params);
 
         final SuperTextView textView = new SuperTextView(getContext());
@@ -93,7 +92,8 @@ class BodyProgressView extends AutoLinearLayout {
         };
     }
 
-    public void setProgress(final int progress) {
+    public void setProgress(int max, int progress) {
+        mProgressBar.setMax(max);
         mProgressBar.setProgress(progress);
         mProgressBar.setSecondaryProgress(progress + 10);
         onProgressChanged();
