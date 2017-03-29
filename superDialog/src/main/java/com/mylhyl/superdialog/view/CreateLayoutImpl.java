@@ -55,6 +55,11 @@ class CreateLayoutImpl implements CreateLayout {
     }
 
     @Override
+    public void buildProgressBody() {
+        mRoot.addView(new BodyProgressView(mContext, mParams));
+    }
+
+    @Override
     public void buildMultipleFooter() {
         final ProviderFooterNegative footerNegative = mParams.mFooterNegative;
         final SuperDialog.OnClickNegativeListener onNegativeListener = footerNegative.getOnNegativeListener();
@@ -125,6 +130,17 @@ class CreateLayoutImpl implements CreateLayout {
         for (int i = 0; i < childCount; i++) {
             View childAt = mRoot.getChildAt(i);
             if (childAt instanceof BodySingleView)
+                return childAt;
+        }
+        return null;
+    }
+
+    @Override
+    public View findProgressBody() {
+        int childCount = mRoot.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View childAt = mRoot.getChildAt(i);
+            if (childAt instanceof BodyProgressView)
                 return childAt;
         }
         return null;

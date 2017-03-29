@@ -9,15 +9,24 @@ public interface CreateLayout {
     void buildHead();
 
     void buildMultipleBody();
+
     void buildSingleBody();
+
     View buildInputBody();
 
+    void buildProgressBody();
+
     void buildMultipleFooter();
+
     void buildSingleFooter();
+
     void buildInputFooter(View view);
 
     View buildView();
 
     View findMultipleBody();
+
     View findSingleBody();
+
+    View findProgressBody();
 }

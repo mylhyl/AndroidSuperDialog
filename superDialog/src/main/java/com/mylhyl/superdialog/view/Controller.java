@@ -1,6 +1,8 @@
 package com.mylhyl.superdialog.view;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
@@ -12,6 +14,7 @@ import com.mylhyl.superdialog.callback.CreateLayout;
 import com.mylhyl.superdialog.callback.ProviderContent;
 import com.mylhyl.superdialog.callback.ProviderContentInput;
 import com.mylhyl.superdialog.callback.ProviderContentMultiple;
+import com.mylhyl.superdialog.callback.ProviderContentProgress;
 import com.mylhyl.superdialog.callback.ProviderContentSingle;
 import com.mylhyl.superdialog.callback.ProviderFooterNegative;
 import com.mylhyl.superdialog.callback.ProviderFooterPositive;
@@ -52,10 +55,14 @@ public final class Controller {
             //没有确定与取消不添加视图
             if (mParams.mFooterNegative != null || mParams.mFooterPositive != null)
                 createLayout.buildSingleFooter();
-        } else {
+        } else if (providerContent != null && providerContent.getMode() == ProviderContent.Mode.INPUT) {
             View inputBody = createLayout.buildInputBody();
             if (mParams.mFooterNegative != null || mParams.mFooterPositive != null)
                 createLayout.buildInputFooter(inputBody);
+        } else if (providerContent != null && providerContent.getMode() == ProviderContent.Mode.PROGRESSBAR) {
+            createLayout.buildProgressBody();
+            if (mParams.mFooterNegative != null)
+                createLayout.buildSingleFooter();
         }
     }
 
@@ -74,6 +81,14 @@ public final class Controller {
         }
         if (animation != null)
             createView().startAnimation(animation);
+    }
+
+    public void refreshProviderContentProgress(int progress) {
+        ProviderContent providerContent = mParams.mProviderContent;
+        if (providerContent != null && providerContent.getMode() == ProviderContent.Mode.PROGRESSBAR) {
+            BodyProgressView bodyProgressView = (BodyProgressView) createLayout.findProgressBody();
+            if (bodyProgressView != null) bodyProgressView.setProgress(progress);
+        }
     }
 
     public static class Params implements Serializable {
@@ -239,7 +254,7 @@ public final class Controller {
 
                 @Override
                 public int[] getMargins() {
-                    return margins != null ? margins : DimenRes.contentMargins;
+                    return margins != null ? margins : DimenRes.contentInputMargins;
                 }
 
                 @Override
@@ -266,8 +281,32 @@ public final class Controller {
                 public int getTextSize() {
                     return textSize > 0 ? textSize : super.getTextSize();
                 }
+            });
+        }
 
+        public void setContentProgress(final int max, @DrawableRes final int progressDrawableId, final int height,
+                                       final int[] margins) {
+            setProviderContent(new ProviderContentProgress() {
 
+                @Override
+                public int[] getMargins() {
+                    return margins != null ? margins : DimenRes.contentProgressMargins;
+                }
+
+                @Override
+                public int getMax() {
+                    return max > 0 ? max : 100;
+                }
+
+                @Override
+                public Drawable getProgressDrawable() {
+                    return progressDrawableId != 0 ? mActivity.getResources().getDrawable(progressDrawableId) : null;
+                }
+
+                @Override
+                public int getHeight() {
+                    return height != 0 ? height : 10;
+                }
             });
         }
 
@@ -345,7 +384,7 @@ public final class Controller {
 
 
         public void setPositiveInputButton(final String text, final int textColor, final int textSize, final int height,
-                                      final SuperDialog.OnClickPositiveInputListener listener) {
+                                           final SuperDialog.OnClickPositiveInputListener listener) {
             setProviderFooterPositive(new ProviderFooterPositiveInput() {
                 @Override
                 public String getTitle() {

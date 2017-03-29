@@ -2,6 +2,7 @@ package com.mylhyl.superdialog;
 
 import android.app.Dialog;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 
-import com.mylhyl.superdialog.res.values.ColorRes;
 import com.mylhyl.superdialog.view.Controller;
 
 /**
@@ -51,6 +51,10 @@ public final class SuperDialog extends BaseDialog {
 
     private void refreshProviderContent(Animation animation) {
         mController.refreshProviderContent(animation);
+    }
+
+    public void refreshProviderContentProgress(int progress) {
+        mController.refreshProviderContentProgress(progress);
     }
 
     @Override
@@ -264,6 +268,23 @@ public final class SuperDialog extends BaseDialog {
             return this;
         }
 
+        public Builder setProgress(int max) {
+            return setProgress(max, 0);
+        }
+
+        public Builder setProgress(int max, @DrawableRes int progressDrawableId) {
+            return setProgress(max, progressDrawableId, 0);
+        }
+
+        public Builder setProgress(int max, @DrawableRes int progressDrawableId, int height) {
+            return setProgress(max, progressDrawableId, height, null);
+        }
+
+        public Builder setProgress(int max, @DrawableRes int progressDrawableId, int height, int[] margins) {
+            mParams.setContentProgress(max, progressDrawableId, height, margins);
+            return this;
+        }
+
         public Builder setNegativeButton(String text, OnClickNegativeListener listener) {
             return setNegativeButton(text, 0, listener);
         }
@@ -329,6 +350,15 @@ public final class SuperDialog extends BaseDialog {
          */
         public void refreshContent(Animation animation) {
             dialog.refreshProviderContent(animation);
+        }
+
+        /**
+         * 设置进度条刻度
+         *
+         * @param progress
+         */
+        public void refreshProgress(int progress) {
+            dialog.refreshProviderContentProgress(progress);
         }
 
         public void show() {

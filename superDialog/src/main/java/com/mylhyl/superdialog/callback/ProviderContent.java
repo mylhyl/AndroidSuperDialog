@@ -8,7 +8,7 @@ import com.mylhyl.superdialog.res.values.DimenRes;
  */
 public abstract class ProviderContent {
     public enum Mode {
-        SINGLE, MULTIPLE, INPUT
+        SINGLE, MULTIPLE, INPUT, PROGRESSBAR
     }
 
     public abstract Mode getMode();

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -23,6 +24,8 @@ import com.mylhyl.superdialog.res.values.ColorRes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView
         .OnItemLongClickListener {
@@ -33,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1
-                , new String[]{"提示框", "确定框", "换头像", "消息框", "动态改变内容", "动态改变items", "输入框"}));
+                , new String[]{"提示框", "确定框", "换头像", "消息框", "动态改变内容", "动态改变items", "输入框", "进度框"}));
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         switch (position) {
             case 0:
                 new SuperDialog.Builder(this).setRadius(10)
@@ -179,6 +182,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             }
                         }).build();
                 break;
+            case 7:
+                final int max = 222;
+                final Timer timer = new Timer();
+                final SuperDialog.Builder progressDialog = new SuperDialog.Builder(this);
+                progressDialog.setCanceledOnTouchOutside(false).setCancelable(false)
+                        .setTitle("正在清理数据")
+                        .setProgress(max)
+//                        .setProgress(max, R.drawable.progress_h)
+                        .setNegativeButton("取消", new SuperDialog.OnClickNegativeListener() {
+                            @Override
+                            public void onClick(View v) {
+                                timer.cancel();
+                            }
+                        });
+                final DialogFragment dialogFragment = progressDialog.build();
+
+                TimerTask timerTask = new TimerTask() {
+                    int progress = 0;
+
+                    @Override
+                    public void run() {
+                        progress++;
+                        if (progress >= max)
+                            dialogFragment.dismiss();
+                        else
+                            progressDialog.refreshProgress(progress);
+                    }
+                };
+                timer.schedule(timerTask, 0, 50);
+                break;
         }
     }
 
@@ -206,6 +239,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         onClickBtn2(view);
-        return false;
+        return true;
     }
 }

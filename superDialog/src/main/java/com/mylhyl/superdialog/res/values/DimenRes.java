@@ -40,7 +40,11 @@ public class DimenRes {
     public static final int inputHeight = 340;
 
     /**
-     * 内容的外边距
+     * 输入框内容的外边距
      */
-    public static final int[] contentMargins = {50, 45, 50, 55};
+    public static final int[] contentInputMargins = {50, 45, 50, 45};
+    /**
+     * 进度条外边距
+     */
+    public static final int[] contentProgressMargins = {20, 45, 20, 45};
 }
