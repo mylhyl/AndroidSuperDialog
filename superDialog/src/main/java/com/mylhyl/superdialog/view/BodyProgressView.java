@@ -95,6 +95,7 @@ class BodyProgressView extends AutoLinearLayout {
 
     public void setProgress(final int progress) {
         mProgressBar.setProgress(progress);
+        mProgressBar.setSecondaryProgress(progress + 10);
         onProgressChanged();
     }
 

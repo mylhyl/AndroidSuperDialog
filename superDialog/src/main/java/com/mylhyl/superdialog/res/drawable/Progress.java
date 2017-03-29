@@ -4,7 +4,6 @@ import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.view.Gravity;
 
 /**
@@ -41,12 +40,9 @@ public final class Progress {
             </shape>
         </item>*/
 
-        GradientDrawable drawable = new GradientDrawable();
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colorsBg);
         drawable.setCornerRadius(5);
         drawable.setGradientCenter(0.5f, 0.75f);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            drawable.setColors(colorsBg);
-        }
         return drawable;
     }
 
@@ -64,11 +60,9 @@ public final class Progress {
                     </shape>
             </clip>
         </item>*/
-        GradientDrawable drawable = new GradientDrawable();
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                colorsSecondaryProgress);
         drawable.setGradientCenter(0.5f, 0.75f);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            drawable.setColors(colorsSecondaryProgress);
-        }
         ClipDrawable clipDrawable = new ClipDrawable(drawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
         return clipDrawable;
     }
@@ -89,12 +83,10 @@ public final class Progress {
         </item>*/
 
         //android:angle 默认是Orientation.TOP_BOTTOM，见源码 GradientDrawableGradient_angle 处
-        GradientDrawable drawable = new GradientDrawable();
+        //见源码 updateGradientDrawableGradient
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colorsProgress);
         drawable.setCornerRadius(5);//android:radius
         drawable.setGradientCenter(0.5f, 0.75f);//x默认是0.5，android:centerY
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            drawable.setColors(colorsProgress);//见源码 updateGradientDrawableGradient
-        }
         ClipDrawable clipDrawable = new ClipDrawable(drawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
         return clipDrawable;
     }
