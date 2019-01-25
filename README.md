@@ -89,8 +89,6 @@ eclipse 可以[点击这里下载aar文件](http://jcenter.bintray.com/com/mylhy
 <meta-data android:name="design_height" android:value="1920"/>
 ```
 
-QQ交流群:435173211
-
 #感谢
 [AutoLayout-Android](https://github.com/DTHeaven/AutoLayout-Android)
 
